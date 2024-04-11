@@ -1,5 +1,6 @@
 package com.soongsil.poppin.heart.domain;
 
+import com.soongsil.poppin.popup.domain.Popup;
 import com.soongsil.poppin.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
