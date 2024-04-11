@@ -46,7 +46,7 @@ public class Popup {
     private LocalDateTime popupEndDate;
 
     @Column(name = "created_date")
-    private LocalDateTime date;
+    private LocalDateTime createdDate;
 
     @OneToOne(mappedBy = "popup")
     private Category category;
@@ -65,6 +65,6 @@ public class Popup {
 
     @PrePersist
     protected void onCreate() {
-        date = LocalDateTime.now();
+        createdDate = LocalDateTime.now();
     }
 }

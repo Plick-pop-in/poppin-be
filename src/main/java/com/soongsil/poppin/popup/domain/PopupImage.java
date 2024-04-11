@@ -26,7 +26,7 @@ public class PopupImage {
     private String popupImageUrl;
 
     @Column(name = "created_date")
-    private LocalDateTime date;
+    private LocalDateTime createdDate;
 
     @Builder
     public PopupImage(Popup popup, String popupImageUrl) {
@@ -36,6 +36,6 @@ public class PopupImage {
 
     @PrePersist
     protected void onCreate() {
-        date = LocalDateTime.now();
+        createdDate = LocalDateTime.now();
     }
 }
