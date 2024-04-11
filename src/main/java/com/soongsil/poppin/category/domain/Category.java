@@ -23,41 +23,41 @@ public class Category {
 
     // 패션
     @Column(name = "category_fashion", nullable = false)
-    private boolean Fashion;
+    private boolean fashion;
 
     // 뷰티
     @Column(name = "category_beauty", nullable = false)
-    private boolean Beauty;
+    private boolean beauty;
 
     // 음식
     @Column(name = "category_food", nullable = false)
-    private boolean Food;
+    private boolean food;
 
     // 연예
     @Column(name = "category_celeb", nullable = false)
-    private boolean Celeb;
+    private boolean celeb;
 
     // 캐릭터
     @Column(name = "category_charactor", nullable = false)
-    private boolean Charactor;
+    private boolean charactor;
 
     // 리빙
     @Column(name = "category_living", nullable = false)
-    private boolean Living;
+    private boolean living;
 
     // 가전/디지털
     @Column(name = "category_digital", nullable = false)
-    private boolean Digital;
+    private boolean digital;
 
     @Builder
-    public Category(boolean Fashion, boolean Beauty, boolean Food, boolean Celeb,
-                    boolean Charactor, boolean Living, boolean Digital) {
-        this.Fashion = Fashion;
-        this.Beauty = Beauty;
-        this.Food = Food;
-        this.Celeb = Celeb;
-        this.Charactor = Charactor;
-        this.Living = Living;
-        this.Digital = Digital;
+    public Category(boolean fashion, boolean beauty, boolean food, boolean celeb,
+                    boolean charactor, boolean living, boolean digital) {
+        this.fashion = fashion;
+        this.beauty = beauty;
+        this.food = food;
+        this.celeb = celeb;
+        this.charactor = charactor;
+        this.living = living;
+        this.digital = digital;
     }
 }
