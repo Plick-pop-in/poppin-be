@@ -1,6 +1,7 @@
 package com.soongsil.poppin.popup.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "popin_popupImg")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PopupImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class PopupImage {
     private String popupImageUrl;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime date;
 
     @Builder
     public PopupImage(Popup popup, String popupImageUrl) {
@@ -35,6 +36,6 @@ public class PopupImage {
 
     @PrePersist
     protected void onCreate() {
-        createdDate = LocalDateTime.now();
+        date = LocalDateTime.now();
     }
 }
