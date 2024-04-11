@@ -2,6 +2,7 @@ package com.soongsil.poppin.popup.domain;
 
 import com.soongsil.poppin.category.domain.Category;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "popin_popup")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Popup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +46,7 @@ public class Popup {
     private LocalDateTime popupEndDate;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime date;
 
     @OneToOne(mappedBy = "popup")
     private Category category;
@@ -64,6 +65,6 @@ public class Popup {
 
     @PrePersist
     protected void onCreate() {
-        createdDate = LocalDateTime.now();
+        date = LocalDateTime.now();
     }
 }
