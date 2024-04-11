@@ -30,12 +30,17 @@ public class Heart {
     private Popup popup;
 
     @Column(name="created_date", nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime createdDate;
 
     @Builder
     public Heart(User user, Popup popup) {
         this.user = user;
         this.popup = popup;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();
     }
 
 }

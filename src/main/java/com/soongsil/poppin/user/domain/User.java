@@ -38,7 +38,7 @@ public class User {
     private Long point;
 
     @Column(name="created_date", nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime createdDate;
 
 
     @OneToMany(mappedBy = "heart", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -54,5 +54,10 @@ public class User {
         this.password = password;
         this.nickName = nickName;
         this.point = point;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();
     }
 }

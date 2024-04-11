@@ -32,7 +32,7 @@ public class UserChat {
     private Integer price;
 
     @Column(name="created_date", nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime createdDate;
 
     @Builder
     public UserChat(User user, Popup popup, Integer price){
@@ -41,4 +41,8 @@ public class UserChat {
         this.price = price;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();
+    }
 }
