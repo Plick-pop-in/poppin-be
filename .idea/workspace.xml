@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="setting : be project init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/heart/domain/Heart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/heart/domain/Heart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/Popup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/Popup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/user/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/user/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChat.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +49,12 @@
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -98,7 +103,7 @@
       <recent name="com.soongsil.poppin.heart.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PoppinApplication">
+  <component name="RunManager" selected="애플리케이션.PoppinApplication">
     <configuration name="PoppinApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.soongsil.poppin.PoppinApplication" />
       <module name="poppin.main" />
@@ -121,7 +126,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PoppinApplication" />
+        <item itemvalue="애플리케이션.PoppinApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -191,6 +196,16 @@
     <MESSAGE value="setting : be project init" />
     <MESSAGE value="setting : gitignore 수정" />
     <option name="LAST_COMMIT_MESSAGE" value="setting : gitignore 수정" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.hibernate.AnnotationException" package="org.hibernate" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -41,10 +41,10 @@ public class User {
     private LocalDateTime createdDate;
 
 
-    @OneToMany(mappedBy = "heart", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Heart> heart;
 
-    @OneToMany(mappedBy = "userChat", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<UserChat> userChat;
 
     @Builder

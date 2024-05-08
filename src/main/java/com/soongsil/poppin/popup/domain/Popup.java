@@ -1,6 +1,7 @@
 package com.soongsil.poppin.popup.domain;
 
 import com.soongsil.poppin.category.domain.Category;
+import com.soongsil.poppin.heart.domain.Heart;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -48,11 +49,14 @@ public class Popup {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @OneToOne(mappedBy = "popup")
+    @OneToOne(mappedBy = "popup", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Category category;
 
     @OneToMany(mappedBy = "popup", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<PopupImage> popupImages;
+
+    @OneToMany(mappedBy = "popup", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Heart> heart;
 
     @Builder
     public Popup(String popupName, String popupTime, String popupIntro, LocalDateTime popupStartDate, LocalDateTime popupEndDate) {
