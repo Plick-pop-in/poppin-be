@@ -19,8 +19,6 @@ public enum ErrorCode {
     NICKNAME_DUPLICATE(400, "이미 존재하는 닉네임입니다."),
     INVALID_PASSWORD(400, "올바르지 않은 비밀번호입니다."),
 
-    INSUFFICIENT_POINTS(400, "포인트가 부족합니다."),
-
 
     // 404
     USER_NOT_FOUND(404, "존재하지 않는 계정입니다."),
