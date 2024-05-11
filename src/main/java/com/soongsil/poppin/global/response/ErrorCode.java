@@ -17,7 +17,6 @@ public enum ErrorCode {
     ENUM_NOT_FOUND(400, "존재하지 않는 ENUM 값입니다."),
     EMAIL_DUPLICATE(400, "이미 존재하는 이메일입니다."),
     NICKNAME_DUPLICATE(400, "이미 존재하는 닉네임입니다."),
-    POPUP_NOT_FOUND(400, "존재하지 않는 팝업이미지입니다."),
     INVALID_PASSWORD(400, "올바르지 않은 비밀번호입니다."),
 
     INSUFFICIENT_POINTS(400, "포인트가 부족합니다."),
