@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="setting : be project init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/Popup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/Popup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/user/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/user/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,25 +64,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.PoppinApplication.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Gradle.poppin-be [:PoppinApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/hl/Documents/GitHub/poppin-be&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.PoppinApplication.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Gradle.poppin-be [:PoppinApplication.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "feat/#1",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/hl/Documents/GitHub/poppin-be",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "terminal",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\category\presentation" />
@@ -93,17 +98,17 @@
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\category\request" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\poppin-be\src\main\resources" />
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\global" />
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\category\application" />
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\category\exception" />
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\userchat\application" />
-      <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\heart\application\exception" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.soongsil.poppin.heart.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.PoppinApplication">
+  <component name="RunManager" selected="Application.PoppinApplication">
     <configuration name="PoppinApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.soongsil.poppin.PoppinApplication" />
       <module name="poppin.main" />
@@ -124,11 +129,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="애플리케이션.PoppinApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
