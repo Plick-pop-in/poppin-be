@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name="popin_heart")
+@Table(name = "heart")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Heart {
 
@@ -22,14 +22,14 @@ public class Heart {
     private Long heartId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="popup_id", nullable = false)
+    @JoinColumn(name = "popup_id", nullable = false)
     private Popup popup;
 
-    @Column(name="created_date", nullable = false)
+    @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
     @Builder
@@ -42,5 +42,4 @@ public class Heart {
     protected void onCreate() {
         createdDate = LocalDateTime.now();
     }
-
 }

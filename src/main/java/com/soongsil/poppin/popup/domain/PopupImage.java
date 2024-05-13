@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "popin_popupImg")
+@Table(name = "img")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PopupImage {
     @Id
