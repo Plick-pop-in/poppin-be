@@ -13,9 +13,10 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name = "popin_popup")
+@Table(name = "popup")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Popup {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "popup_id")
@@ -27,7 +28,6 @@ public class Popup {
     @Column(name = "popup_time", nullable = false)
     private String popupTime;
 
-    // 팝업 소개 속성
     @Column(name = "popup_intro", nullable = false)
     private String popupIntro;
 
@@ -52,11 +52,11 @@ public class Popup {
     @OneToOne(mappedBy = "popup", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Category category;
 
-    @OneToMany(mappedBy = "popup", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "popup", cascade = CascadeType.ALL)
     private List<PopupImage> popupImages;
 
-    @OneToMany(mappedBy = "popup", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Heart> heart;
+    @OneToMany(mappedBy = "popup", cascade = CascadeType.ALL)
+    private List<Heart> hearts; // 양방향 관계 설정
 
     @Builder
     public Popup(String popupName, String popupTime, String popupIntro, LocalDateTime popupStartDate, LocalDateTime popupEndDate) {
