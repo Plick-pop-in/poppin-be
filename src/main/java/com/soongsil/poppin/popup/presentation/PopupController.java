@@ -3,11 +3,13 @@ package com.soongsil.poppin.popup.presentation;
 
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.popup.application.PopupSearchService;
+import com.soongsil.poppin.popup.application.response.DetailPopup;
 import com.soongsil.poppin.popup.application.response.ImgUrlList;
 import com.soongsil.poppin.popup.application.response.TopPopup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,4 +36,14 @@ public class PopupController {
     }
 
 
+    //팝업 디테일
+    @GetMapping("/popupdetail/{popupId}")
+    public ResponseDto<DetailPopup> getDetailById(@PathVariable Long popupId){
+        DetailPopup detailPopup = popupSearchService.getDetailPopupById(popupId);
+        if(detailPopup != null){
+            return ResponseDto.map(HttpStatus.OK.value(), "팝업 디테일 정보 불러오기 성공", detailPopup);
+        }else{
+            return ResponseDto.map(HttpStatus.NOT_FOUND.value(), "해당 ID에 대한 팝업 디테일을 찾을 수 없습니다.", null);
+        }
+    }
 }

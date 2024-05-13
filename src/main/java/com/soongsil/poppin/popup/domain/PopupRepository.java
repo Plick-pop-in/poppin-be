@@ -19,6 +19,8 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
             "GROUP BY p.popupId, i.popupImageUrl, p.popupName, p.popupStartDate, p.popupEndDate " +
             "ORDER BY likeCount DESC")
     Page<Object[]> findTop3ByOrderByLikeCountDesc(Pageable pageable);
+
+    //id에 해당하는 값 가져오는 쿼리
+    @Query(value = "SELECT * FROM popup WHERE popup_id = :popupId", nativeQuery = true)
+    Popup findPopupById(Long popupId);
 }
-
-
