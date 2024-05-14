@@ -3,15 +3,14 @@ package com.soongsil.poppin.popup.presentation;
 
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.popup.application.PopupSearchService;
+import com.soongsil.poppin.popup.application.exception.PopupException;
 import com.soongsil.poppin.popup.application.response.DetailPopup;
 import com.soongsil.poppin.popup.application.response.ImgUrlList;
 import com.soongsil.poppin.popup.application.response.TopPopup;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,15 +34,25 @@ public class PopupController {
         return ResponseDto.map(HttpStatus.OK.value(), "좋아요 TOP3 팝업 정보 불러오기 성공", top3Popups);
     }
 
-
     //팝업 디테일
+    @ResponseBody
     @GetMapping("/popupdetail/{popupId}")
-    public ResponseDto<DetailPopup> getDetailById(@PathVariable Long popupId){
-        DetailPopup detailPopup = popupSearchService.getDetailPopupById(popupId);
-        if(detailPopup != null){
-            return ResponseDto.map(HttpStatus.OK.value(), "팝업 디테일 정보 불러오기 성공", detailPopup);
-        }else{
-            return ResponseDto.map(HttpStatus.NOT_FOUND.value(), "해당 ID에 대한 팝업 디테일을 찾을 수 없습니다.", null);
+    public ResponseDto<DetailPopup> getDetailPopupById(@PathVariable(name = "popupId") Long popupId) {
+        try {
+            DetailPopup detailPopup = popupSearchService.getDetailPopupById(popupId);
+            if (detailPopup != null) {
+                return ResponseDto.map(HttpStatus.OK.value(), "팝업 디테일 정보 불러오기 성공", detailPopup);
+            } else {
+                return ResponseDto.map(HttpStatus.NOT_FOUND.value(), "해당 ID에 대한 팝업 디테일을 찾을 수 없습니다.", null);
+            }
+        } catch (Exception ex) {
+            Throwable targetException = ex.getCause();
+            if (targetException != null) {
+                System.out.println("원인 예외: " + targetException.getMessage());
+            } else {
+                System.out.println("예외 발생: " + ex.getMessage());
+            }
+            return ResponseDto.map(HttpStatus.NOT_FOUND.value(), "getDetailPopupById 에러 발생.", null);
         }
     }
 }
