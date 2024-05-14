@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "popin_popup_category")
+@Table(name = "category")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
     @Id
