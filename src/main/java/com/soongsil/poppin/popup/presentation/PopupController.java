@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/v1/popup")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class PopupController {
     private final PopupSearchService popupSearchService;
 
@@ -35,7 +36,6 @@ public class PopupController {
     }
 
     //팝업 디테일
-    @ResponseBody
     @GetMapping("/popupdetail/{popupId}")
     public ResponseDto<DetailPopup> getDetailPopupById(@PathVariable(name = "popupId") Long popupId) {
         try {
