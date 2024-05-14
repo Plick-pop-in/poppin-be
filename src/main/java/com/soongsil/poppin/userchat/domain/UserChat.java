@@ -1,7 +1,7 @@
 package com.soongsil.poppin.userchat.domain;
 
 import com.soongsil.poppin.popup.domain.Popup;
-import com.soongsil.poppin.user.domain.User;
+import com.soongsil.poppin.user.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,7 +22,7 @@ public class UserChat {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", nullable = false)
-    private User user;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="popup_id", nullable = false)
@@ -35,8 +35,8 @@ public class UserChat {
     private LocalDateTime createdDate;
 
     @Builder
-    public UserChat(User user, Popup popup, Integer price){
-        this.user = user;
+    public UserChat(Member member, Popup popup, Integer price){
+        this.member = member;
         this.popup = popup;
         this.price = price;
     }

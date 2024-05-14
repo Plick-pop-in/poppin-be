@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name="popin_user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,14 +41,14 @@ public class User {
     private LocalDateTime createdDate;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Heart> heart;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<UserChat> userChat;
 
     @Builder
-    public User(String name, String email, String password, String nickName, Long point){
+    public Member(String name, String email, String password, String nickName, Long point){
         this.name = name;
         this.email =email;
         this.password = password;
