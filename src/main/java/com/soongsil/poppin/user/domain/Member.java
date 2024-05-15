@@ -48,12 +48,11 @@ public class Member {
     private List<UserChat> userChat;
 
     @Builder
-    public Member(String name, String email, String password, String nickName, Long point){
+    public Member(String name, String email, String password, String nickName){
         this.name = name;
         this.email =email;
         this.password = password;
         this.nickName = nickName;
-        this.point = point;
     }
 
     @PrePersist
