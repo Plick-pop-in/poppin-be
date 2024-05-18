@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class UserDto extends User {
     private String name, email, password, nickname;
