@@ -1,11 +1,14 @@
 package com.soongsil.poppin.global.config;
 
+import com.soongsil.poppin.user.presentation.LoginFailHandler;
+import com.soongsil.poppin.user.presentation.LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,10 +31,18 @@ public class SecurityConfig {
             httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
         });
 
+        http.sessionManagement(httpSecuritySessionManagementConfigurer -> {
+            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.NEVER);
+        });
+
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
 
         http.formLogin(config -> {
             config.loginPage("/user/login");
+            // 로그인 성공 시
+            config.successHandler(new LoginSuccessHandler());
+            // 로그인 실패 시
+            config.failureHandler(new LoginFailHandler());
         });
 
         return http.build();
