@@ -2,25 +2,25 @@ package com.soongsil.poppin.userchat.presentation;
 
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.userchat.application.UserChatSearchService;
+import com.soongsil.poppin.userchat.application.request.UserChatRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/v1/chat")
+@RequestMapping(value="/v1/chat")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class UserChatController {
     private final UserChatSearchService userChatSearchService;
 
     // 유저 채팅 리스트 불러오기
-    @GetMapping("/chat/{userId}")
-    public ResponseDto<Page<String[]>> getUserChatList(@PathVariable(name = "userId") Long userId,
-                                                       @PageableDefault(size = 0) Pageable pageable) {
+    @GetMapping("/chat")
+    public ResponseDto<Page<String[]>> getUserChatList(@ModelAttribute UserChatRequest request, Pageable pageable) {
         try {
+            Long userId = request.getUserId();
             Page<String[]> userChatList = userChatSearchService.getUserChatList(userId, pageable);
             return ResponseDto.map(HttpStatus.OK.value(), "유저 채팅 리스트 불러오기 성공", userChatList);
         } catch (Exception ex) {
