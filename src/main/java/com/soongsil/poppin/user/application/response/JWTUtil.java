@@ -1,60 +1,73 @@
 package com.soongsil.poppin.user.application.response;
 
-import com.soongsil.poppin.user.application.exception.JWTException;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
-
 import javax.crypto.SecretKey;
-import java.sql.Date;
+import io.jsonwebtoken.security.Keys;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Map;
 
 public class JWTUtil {
-    private static String key = "1234567890123456789012345678901234567890";
+    private static final String SECRET_KEY = "0123456789012345678901234567890123456789"; // 최소 32바이트
 
-    // JWT 문자열 생성, min은 유효시간 검증 시 필요
     public static String generateToken(Map<String, Object> valueMap, int min) {
-        SecretKey key = null;
+        SecretKey key;
 
         try {
-            key = Keys.hmacShaKeyFor(JWTUtil.key.getBytes("UTF-8"));
+            key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes("UTF-8"));
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Error creating SecretKey: " + e.getMessage());
         }
 
-        String jwtStr = Jwts.builder().
-                setHeader(Map.of("typ", "JWT"))
+        return Jwts.builder()
+                .setHeaderParam("typ", "JWT")
                 .setClaims(valueMap)
                 .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
                 .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(min).toInstant()))
                 .signWith(key)
                 .compact();
-
-        return jwtStr;
     }
 
     public static Map<String, Object> validateToken(String token) {
-        Map<String, Object> claim = null;
+        if (token == null || token.trim().isEmpty()) {
+            throw new JWTException("Invalid token: Token is null or empty");
+        }
+
+        Map<String, Object> claims;
 
         try {
-            SecretKey Key = Keys.hmacShaKeyFor(JWTUtil.key.getBytes("UTF-8"));
+            SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes("UTF-8"));
 
-            claim = Jwts.parserBuilder()
+            System.out.println("SecretKey: " + key); // 디버깅 정보 추가
+
+            claims = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
-                    .parseClaimsJws(token) // 파싱 및 검증, 실패 시 에러
+                    .parseClaimsJws(token)
                     .getBody();
         } catch (MalformedJwtException malformedJwtException) {
-            throw new JWTException("MalFormed");
+            System.err.println("Malformed JWT token: " + malformedJwtException.getMessage());
+            throw new JWTException("MalFormed: " + malformedJwtException.getMessage());
         } catch (ExpiredJwtException expiredJwtException) {
-            throw new JWTException("Expired");
+            System.err.println("Expired JWT token: " + expiredJwtException.getMessage());
+            throw new JWTException("Expired: " + expiredJwtException.getMessage());
         } catch (InvalidClaimException invalidClaimException) {
-            throw new JWTException("Invalid");
+            System.err.println("Invalid claims in JWT token: " + invalidClaimException.getMessage());
+            throw new JWTException("Invalid: " + invalidClaimException.getMessage());
         } catch (JwtException jwtException) {
-            throw new JWTException("JWTError");
+            System.err.println("JWT processing error: " + jwtException.getMessage());
+            throw new JWTException("JWTError: " + jwtException.getMessage());
         } catch (Exception e) {
-            throw new JWTException("Error");
+            System.err.println("General error: " + e.getMessage());
+            throw new JWTException("Error: " + e.getMessage());
         }
-        return claim;
+
+        return claims;
+    }
+
+    public static class JWTException extends RuntimeException {
+        public JWTException(String message) {
+            super(message);
+        }
     }
 }

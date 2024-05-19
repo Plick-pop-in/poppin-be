@@ -19,10 +19,10 @@ public class UserRepositoryTests {
     @Test
     public void testInsertMember() {
         Member member = Member.builder()
-                .name("홍길동")
-                .email("hong@naver.com")
-                .password(passwordEncoder.encode("hong"))
-                .nickName("동서남북")
+                .name("user1")
+                .email("user1@naver.com")
+                .password(passwordEncoder.encode("1111"))
+                .nickName("팝팝")
                 .build();
 
         userRepository.save(member);

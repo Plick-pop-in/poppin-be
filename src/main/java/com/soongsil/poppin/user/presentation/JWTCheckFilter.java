@@ -22,80 +22,130 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 
-//        // Preflight요청은 체크하지 않음
-//        if(request.getMethod().equals("OPTIONS")){
-//            return true;
-//        }
-//
+        // Preflight요청은 체크하지 않음
+        if(request.getMethod().equals("OPTIONS")){
+            return true;
+        }
+
         String path = request.getRequestURI();
 
         log.info("check uri.............." + path);
-//
-//        //api/member/ 경로의 호출은 JWT token 체크하지 않음
-//        if(path.startsWith("/user/login/")) {
-//            return true;
-//        }
-//
+
+        //user/login 경로의 호출은 JWT token 체크하지 않음
+        if(path.startsWith("/user/login")) {
+            return true;
+        }
+
 //        //이미지 조회 경로는 체크하지 않는다면
 //        if(path.startsWith("/api/products/view/")) {
 //            return true;
 //        }
-//
+
         return false;
     }
 
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-        log.info("------------------------JWTCheckFilter.......................");
+        String token = request.getHeader("Authorization");
 
-        // JWT Authorization 헤더
-        String authHeaderStr = request.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7); // "Bearer " 제거
+            try {
+                System.out.println("Validating token: " + token); // 디버깅 정보 추가
+                Map<String, Object> claims = JWTUtil.validateToken(token);
+                System.out.println("JWT claims: " + claims);
 
-        try {
-            // Bearer accestoken -> accesstoken 추출 (문자열에서 'Bearer ' 제거한다는 뜻)
-            String accessToken = authHeaderStr.substring(7);
-            // accessToken 유효성 검사
-            Map<String, Object> claims = JWTUtil.validateToken(accessToken);
+                String name = (String) claims.get("name");
+                String email = (String) claims.get("email");
+                String password = (String) claims.get("password");
+                String nickname = (String) claims.get("nickname");
 
-            log.info("JWT claims: " + claims);
+                UserDto userDto = new UserDto(name, email, password, nickname);
 
-            //filterChain.doFilter(request, response); //이하 추가
+                log.info("-----------------------------------");
+                log.info(userDto);
+                log.info(userDto.getAuthorities());
 
-            String name = (String) claims.get("name");
-            String email = (String) claims.get("email");
-            String password = (String) claims.get("pw");
-            String nickname = (String) claims.get("nickname");
-            // Boolean social = (Boolean) claims.get("social");
+                UsernamePasswordAuthenticationToken authenticationToken
+                        = new UsernamePasswordAuthenticationToken(userDto, password, userDto.getAuthorities());
 
-            UserDto userDto = new UserDto(name, email, password, nickname);
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-            log.info("-----------------------------------");
-            log.info(userDto);
-            log.info(userDto.getAuthorities());
+                // 다음 목적지로 이동
+                chain.doFilter(request, response);
 
-            UsernamePasswordAuthenticationToken authenticationToken
-                    = new UsernamePasswordAuthenticationToken(userDto, password, userDto.getAuthorities());
+                // 사용자 인증 설정 (예시)
+                // 예: SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-            // 다음 목적지로 이동
-            filterChain.doFilter(request, response);
-
-        }catch(Exception e){
-
-            log.error("JWT Check Error..............");
-            log.error(e.getMessage());
-
-            Gson gson = new Gson();
-            String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
-
-            response.setContentType("application/json");
-            PrintWriter printWriter = response.getWriter();
-            printWriter.println(msg);
-            printWriter.close();
-
+            } catch (JWTUtil.JWTException e) {
+                // 구체적인 예외 메시지 출력
+                System.err.println("JWT Check Error: " + e.getMessage());
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
+                return;
+            } catch (Exception e) {
+                // 다른 예외 처리
+                System.err.println("General Error: " + e.getMessage());
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "An error occurred while processing the JWT");
+                return;
+            }
         }
+
+        chain.doFilter(request, response);
     }
+
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+//
+//        log.info("------------------------JWTCheckFilter.......................");
+//
+//        // JWT Authorization 헤더
+//        String authHeaderStr = request.getHeader("Authorization");
+//
+//        try {
+//            // Bearer accestoken -> accesstoken 추출 (문자열에서 'Bearer ' 제거한다는 뜻)
+//            String accessToken = authHeaderStr.substring(7);
+//            // accessToken 유효성 검사
+//            log.info(accessToken);
+//            Map<String, Object> claims = JWTUtil.validateToken(accessToken);
+//
+//            log.info("JWT claims: " + claims);
+//
+//            String name = (String) claims.get("name");
+//            String email = (String) claims.get("email");
+//            String password = (String) claims.get("pw");
+//            String nickname = (String) claims.get("nickname");
+//            String role = (String) claims.get("role");
+//            // Boolean social = (Boolean) claims.get("social");
+//
+//            UserDto userDto = new UserDto(name, email, password, nickname);
+//
+//            log.info("-----------------------------------");
+//            log.info(userDto);
+//            log.info(userDto.getAuthorities());
+//
+//            UsernamePasswordAuthenticationToken authenticationToken
+//                    = new UsernamePasswordAuthenticationToken(userDto, password, userDto.getAuthorities());
+//
+//            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+//
+//            // 다음 목적지로 이동
+//            filterChain.doFilter(request, response);
+//
+//        }catch(Exception e){
+//
+//            log.error("JWT Check Error..............");
+//            log.error(e.getMessage());
+//
+//            Gson gson = new Gson();
+//            String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
+//
+//            response.setContentType("application/json");
+//            PrintWriter printWriter = response.getWriter();
+//            printWriter.println(msg);
+//            printWriter.close();
+//
+//        }
+//    }
 }

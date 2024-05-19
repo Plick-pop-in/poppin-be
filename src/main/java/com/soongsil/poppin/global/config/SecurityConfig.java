@@ -1,5 +1,6 @@
 package com.soongsil.poppin.global.config;
 
+import com.soongsil.poppin.user.application.exception.AccessHandler;
 import com.soongsil.poppin.user.presentation.JWTCheckFilter;
 import com.soongsil.poppin.user.presentation.LoginFailHandler;
 import com.soongsil.poppin.user.presentation.LoginSuccessHandler;
@@ -48,6 +49,10 @@ public class SecurityConfig {
         });
 
         http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
+           httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(new AccessHandler());
+        });
 
         return http.build();
     }

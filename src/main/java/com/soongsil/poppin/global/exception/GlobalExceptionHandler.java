@@ -3,10 +3,13 @@ package com.soongsil.poppin.global.exception;
 import com.soongsil.poppin.global.response.ErrorCode;
 import com.soongsil.poppin.global.response.ErrorResponseDto;
 import com.soongsil.poppin.popup.application.exception.PopupException;
+import com.soongsil.poppin.user.application.exception.JWTException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice
@@ -28,5 +31,11 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ErrorResponseDto>handleException(Exception e) {
         log.error("Exception : {}", e.getMessage());
         return ResponseEntity.badRequest().body(ErrorResponseDto.map(ErrorCode.INTERNAL_SERVER_ERROR));
+    }
+
+    @ExceptionHandler(JWTException.class)
+    protected ResponseEntity<ErrorResponseDto>handleJWTException(Exception e) {
+        log.error("JWTException : {}", e.getMessage());
+        return ResponseEntity.badRequest().body(ErrorResponseDto.map(ErrorCode.EXPIRED_TOKEN));
     }
 }

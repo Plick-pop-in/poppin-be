@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserDto extends User {
-    private String name, email, password, nickname;
+    private String name, email, password, nickname, role;
 
     public UserDto(String name, String email, String password, String nickname) {
         super(
@@ -19,6 +19,7 @@ public class UserDto extends User {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.role = "ROLE_USER";
     }
 
     public Map<String, Object> getClaims() {
@@ -28,6 +29,7 @@ public class UserDto extends User {
         dataMap.put("email", email);
         dataMap.put("password", password);
         dataMap.put("nickname", nickname);
+        dataMap.put("role", role);
 
         return dataMap;
     }
