@@ -5,11 +5,12 @@ import com.soongsil.poppin.userchat.application.UserChatSearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value="/v1/chat")
+@RequestMapping(value = "/v1/chat")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class UserChatController {
@@ -17,7 +18,8 @@ public class UserChatController {
 
     // 유저 채팅 리스트 불러오기
     @GetMapping("/chat/{userId}")
-    public ResponseDto<Page<String[]>> getUserChatList(@PathVariable(name = "userId") Long userId, Pageable pageable) {
+    public ResponseDto<Page<String[]>> getUserChatList(@PathVariable(name = "userId") Long userId,
+                                                       @PageableDefault(size = 0) Pageable pageable) {
         try {
             Page<String[]> userChatList = userChatSearchService.getUserChatList(userId, pageable);
             return ResponseDto.map(HttpStatus.OK.value(), "유저 채팅 리스트 불러오기 성공", userChatList);
