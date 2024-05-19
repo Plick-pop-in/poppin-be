@@ -2,8 +2,6 @@ package com.soongsil.poppin.userchat.presentation;
 
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.userchat.application.UserChatSearchService;
-import com.soongsil.poppin.userchat.domain.QUserChat;
-import com.soongsil.poppin.userchat.domain.UserChat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
