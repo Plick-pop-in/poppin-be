@@ -17,7 +17,7 @@ public class UserChatController {
     private final UserChatSearchService userChatSearchService;
 
     // 유저 채팅 리스트 불러오기
-    @GetMapping("/chat")
+    @GetMapping("/userchatlist")
     public ResponseDto<Page<String[]>> getUserChatList(@ModelAttribute UserChatRequest request, Pageable pageable) {
         try {
             Long userId = request.getUserId();
