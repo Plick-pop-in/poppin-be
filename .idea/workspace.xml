@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat : UserChatRepository 생성">
-      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/category/domain/QCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/heart/domain/QHeart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopupImage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/user/domain/QUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/userchat/domain/QUserChat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/heart/domain/QHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/heart/domain/QHeart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/user/domain/QUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/userchat/domain/QUserChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/userchat/domain/QUserChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/response/UserChatList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChatRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/UserChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/UserChatController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +90,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "settings.editor.selected.configurable": "preferences.editor",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {

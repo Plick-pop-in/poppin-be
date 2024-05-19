@@ -26,9 +26,9 @@ public class QHeart extends EntityPathBase<Heart> {
 
     public final NumberPath<Long> heartId = createNumber("heartId", Long.class);
 
-    public final com.soongsil.poppin.popup.domain.QPopup popup;
+    public final com.soongsil.poppin.user.domain.QMember member;
 
-    public final com.soongsil.poppin.user.domain.QUser user;
+    public final com.soongsil.poppin.popup.domain.QPopup popup;
 
     public QHeart(String variable) {
         this(Heart.class, forVariable(variable), INITS);
@@ -48,8 +48,8 @@ public class QHeart extends EntityPathBase<Heart> {
 
     public QHeart(Class<? extends Heart> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.member = inits.isInitialized("member") ? new com.soongsil.poppin.user.domain.QMember(forProperty("member")) : null;
         this.popup = inits.isInitialized("popup") ? new com.soongsil.poppin.popup.domain.QPopup(forProperty("popup"), inits.get("popup")) : null;
-        this.user = inits.isInitialized("user") ? new com.soongsil.poppin.user.domain.QUser(forProperty("user")) : null;
     }
 
 }

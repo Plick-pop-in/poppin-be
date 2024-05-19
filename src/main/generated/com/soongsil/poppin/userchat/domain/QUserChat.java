@@ -24,13 +24,13 @@ public class QUserChat extends EntityPathBase<UserChat> {
 
     public final DateTimePath<java.time.LocalDateTime> createdDate = createDateTime("createdDate", java.time.LocalDateTime.class);
 
+    public final com.soongsil.poppin.user.domain.QMember member;
+
     public final com.soongsil.poppin.popup.domain.QPopup popup;
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
     public final NumberPath<Long> uchatId = createNumber("uchatId", Long.class);
-
-    public final com.soongsil.poppin.user.domain.QUser user;
 
     public QUserChat(String variable) {
         this(UserChat.class, forVariable(variable), INITS);
@@ -50,8 +50,8 @@ public class QUserChat extends EntityPathBase<UserChat> {
 
     public QUserChat(Class<? extends UserChat> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.member = inits.isInitialized("member") ? new com.soongsil.poppin.user.domain.QMember(forProperty("member")) : null;
         this.popup = inits.isInitialized("popup") ? new com.soongsil.poppin.popup.domain.QPopup(forProperty("popup"), inits.get("popup")) : null;
-        this.user = inits.isInitialized("user") ? new com.soongsil.poppin.user.domain.QUser(forProperty("user")) : null;
     }
 
 }

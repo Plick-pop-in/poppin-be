@@ -38,6 +38,8 @@ public class QPopup extends EntityPathBase<Popup> {
 
     public final StringPath popupIntro = createString("popupIntro");
 
+    public final StringPath popupLocal = createString("popupLocal");
+
     public final StringPath popupLocation = createString("popupLocation");
 
     public final StringPath popupName = createString("popupName");
