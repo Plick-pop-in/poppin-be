@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="setting :">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/response/UserChatList.java" afterDir="false" />
+    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat : UserChatList 생성">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChatRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/UserChatController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/dumpservice.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/response/dump.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/dumpcontroller.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +45,7 @@
       <list>
         <option value="HTML File" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -83,7 +89,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.general",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -101,11 +107,14 @@
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\category\request" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\soongsil.univ\4_1\poppin-be\src\main\java\com\soongsil\poppin\userchat\presentation" />
       <recent name="C:\poppin-be\src\main\resources" />
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\global" />
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\category\application" />
       <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\category\exception" />
-      <recent name="C:\poppin-be\poppin\src\main\java\com\soongsil\poppin\userchat\application" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.soongsil.poppin.userchat" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.soongsil.poppin.heart.domain" />
@@ -161,7 +170,9 @@
       <workItem from="1712226924232" duration="1128000" />
       <workItem from="1715598659553" duration="123000" />
       <workItem from="1715599304158" duration="3047000" />
-      <workItem from="1715674333589" duration="2345000" />
+      <workItem from="1715674333589" duration="2867000" />
+      <workItem from="1715680841518" duration="475000" />
+      <workItem from="1716109355315" duration="10544000" />
     </task>
     <task id="LOCAL-00001" summary="setting : be project init">
       <option name="closed" value="true" />
@@ -187,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712842558747</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat : UserChatList 생성">
+      <option name="closed" value="true" />
+      <created>1715676740590</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715676740590</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,7 +226,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="setting : be project init" />
     <MESSAGE value="setting : gitignore 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="setting : gitignore 수정" />
+    <MESSAGE value="feat : UserChatList 생성" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : UserChatList 생성" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
