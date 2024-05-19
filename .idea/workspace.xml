@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat : UserChatList 생성">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChatRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/UserChatController.java" afterDir="false" />
+    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat : UserChatRepository 생성">
+      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/category/domain/QCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/heart/domain/QHeart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopupImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/user/domain/QUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/userchat/domain/QUserChat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/dumpservice.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/response/dump.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/dumpcontroller.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/response/UserChatList.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +175,7 @@
       <workItem from="1715599304158" duration="3047000" />
       <workItem from="1715674333589" duration="2867000" />
       <workItem from="1715680841518" duration="475000" />
-      <workItem from="1716109355315" duration="10544000" />
+      <workItem from="1716109355315" duration="12081000" />
     </task>
     <task id="LOCAL-00001" summary="setting : be project init">
       <option name="closed" value="true" />
@@ -206,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715676740590</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat : UserChatRepository 생성">
+      <option name="closed" value="true" />
+      <created>1716125456545</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716125456545</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,7 +238,8 @@
     <MESSAGE value="setting : be project init" />
     <MESSAGE value="setting : gitignore 수정" />
     <MESSAGE value="feat : UserChatList 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : UserChatList 생성" />
+    <MESSAGE value="feat : UserChatRepository 생성" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : UserChatRepository 생성" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
