@@ -1,7 +1,7 @@
 package com.soongsil.poppin.heart.domain;
 
 import com.soongsil.poppin.popup.domain.Popup;
-import com.soongsil.poppin.user.domain.User;
+import com.soongsil.poppin.user.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class Heart {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "popup_id", nullable = false)
@@ -33,8 +33,8 @@ public class Heart {
     private LocalDateTime createdDate;
 
     @Builder
-    public Heart(User user, Popup popup) {
-        this.user = user;
+    public Heart(Member member, Popup popup) {
+        this.member = member;
         this.popup = popup;
     }
 
