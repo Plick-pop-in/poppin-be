@@ -8,8 +8,8 @@ on:
 
 # 해당 yml 내에서 사용할 key - value
 env:
-  S3_BUCKET_NAME: deploy-be
-  PROJECT_NAME: cicdtest
+  S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET }}
+  PROJECT_NAME: ${{ github.repository }}
   
 # workflow는 한개 이상의 job을 가지며, 각 job은 여러 step에 따라 단계를 나눌 수 있습니다.
 jobs:
@@ -31,6 +31,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
+
+      - name: Print current working directory
+        run: ls -lR
       
       - name: Build with Gradle
         run: ./gradlew clean build --exclude-task test
@@ -38,7 +41,8 @@ jobs:
         
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
-        shell: bash
+        env:
+          GITHUB_SHA: ${{ github.sha }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -54,8 +58,10 @@ jobs:
       # S3에 업로드
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
-
-# Deploy
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+          
+      # Deploy
       - name: Deploy
         run: |
           aws deploy create-deployment \
@@ -63,5 +69,5 @@ jobs:
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name cicd-prod \
           --file-exists-behavior OVERWRITE \
-          --s3-location bucket=deploy-be,bundleType=zip,key=cicd/$GITHUB_SHA.zip \
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=cicd/$GITHUB_SHA.zip \
           --region ap-northeast-2 \
