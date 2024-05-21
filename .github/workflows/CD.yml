@@ -56,7 +56,7 @@ jobs:
       - name: Deploy
         run: |
           aws deploy create-deployment \
-          --application-name PoppinApplication \
+          --application-name cicd-project \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name cicd-prod \
           --file-exists-behavior OVERWRITE \
