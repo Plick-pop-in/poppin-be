@@ -40,6 +40,9 @@ public class Popup {
     @Column(name = "popup_city")
     private String popupCity;
 
+    @Column(name = "popup_local")
+    private String popupLocal;
+
     @Column(name = "popup_start_date", nullable = false)
     private LocalDateTime popupStartDate;
 
@@ -59,10 +62,14 @@ public class Popup {
     private List<Heart> hearts; // 양방향 관계 설정
 
     @Builder
-    public Popup(String popupName, String popupTime, String popupIntro, LocalDateTime popupStartDate, LocalDateTime popupEndDate) {
+    public Popup(String popupName, String popupTime, String popupIntro, String popupPageLink, String popupLocation, String popupCity, String popupLocal, LocalDateTime popupStartDate, LocalDateTime popupEndDate) {
         this.popupName = popupName;
         this.popupTime = popupTime;
         this.popupIntro = popupIntro;
+        this.popupPageLink = popupPageLink;
+        this.popupLocation = popupLocation;
+        this.popupCity = popupCity;
+        this.popupLocal = popupLocal;
         this.popupStartDate = popupStartDate;
         this.popupEndDate = popupEndDate;
     }
