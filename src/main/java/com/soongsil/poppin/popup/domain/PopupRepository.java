@@ -4,8 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -19,6 +22,15 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
             "ORDER BY COUNT(h) DESC " +
             "LIMIT 3")
     List<Long> findTop3PopupIdsWithMostLikes();
+
+    // 진행 중인 팝업 조회
+    @Query("SELECT p " +
+            "FROM Popup p " +
+            "WHERE :currentDate BETWEEN p.popupStartDate AND p.popupEndDate")
+    List<Popup> findInProgressPopups(LocalDateTime currentDate, Pageable pageable);
+
+
+
 
     // 메인페이지 좋아요 top3 가져오는 쿼리
     @Query("SELECT p.popupId, i.popupImageUrl, p.popupName, " +

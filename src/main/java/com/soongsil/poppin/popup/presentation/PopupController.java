@@ -3,12 +3,11 @@ package com.soongsil.poppin.popup.presentation;
 
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.popup.application.PopupSearchService;
-import com.soongsil.poppin.popup.application.exception.PopupException;
 import com.soongsil.poppin.popup.application.response.DetailPopup;
 import com.soongsil.poppin.popup.application.response.ImgUrlList;
+import com.soongsil.poppin.popup.application.response.InProgressPopup;
 import com.soongsil.poppin.popup.application.response.TopPopup;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +32,15 @@ public class PopupController {
     public ResponseDto<List<TopPopup>> getTop3PopupsWithMostLikes() {
         List<TopPopup> top3Popups = popupSearchService.getTop3PopupsWithMostLikes();
         return ResponseDto.map(HttpStatus.OK.value(), "좋아요 TOP3 팝업 정보 불러오기 성공", top3Popups);
+    }
+
+    // 메인페이지 진행중 팝업 불러오기
+    @GetMapping("/in-progress")
+    public ResponseDto<List<InProgressPopup>> getInProgressPopups(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size) {
+        List<InProgressPopup> inProgressPopups = popupSearchService.getInProgressPopups(page, size);
+        return ResponseDto.map(HttpStatus.OK.value(), "진행 중인 팝업 정보 불러오기 성공", inProgressPopups);
     }
 
     //팝업 디테일
