@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class LiveList {
+public class Live {
     private final String popupImage;
     private final String popupName;
     private final String popupLocation;
