@@ -12,7 +12,7 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
     Long countHeartByPopup(Long popupId);
 
     //heart 개수 Count
-    @Query(value = "SELECT count(*) FROM Heart WHERE popup_id = :popupId", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM heart WHERE popup_id = :popupId", nativeQuery = true)
     Long countHeartById(Long popupId);
 
 }
