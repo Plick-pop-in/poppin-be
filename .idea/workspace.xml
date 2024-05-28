@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat : UserChatRepository 생성">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/heart/domain/QHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/heart/domain/QHeart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/popup/domain/QPopup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/user/domain/QUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/userchat/domain/QUserChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/soongsil/poppin/userchat/domain/QUserChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/UserChatSearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/domain/UserChatRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/UserChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/UserChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/heart/domain/HeartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/heart/domain/HeartRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/application/PopupSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/application/PopupSearchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/PopupRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/PopupRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +26,7 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="poppin" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -76,10 +68,14 @@
     "Application.PoppinApplication.executor": "Run",
     "DefaultHtmlFileTemplate": "HTML File",
     "Gradle.poppin-be [:PoppinApplication.main()].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feat/#7",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/study_spring/hello-spring",
     "node.js.detected.package.eslint": "true",
@@ -121,7 +117,7 @@
       <recent name="com.soongsil.poppin.heart.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PoppinApplication">
+  <component name="RunManager" selected="Spring Boot.PoppinApplication">
     <configuration name="PoppinApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.soongsil.poppin.PoppinApplication" />
       <module name="poppin.main" />
@@ -174,6 +170,9 @@
       <workItem from="1715674333589" duration="2867000" />
       <workItem from="1715680841518" duration="475000" />
       <workItem from="1716109355315" duration="12081000" />
+      <workItem from="1716312405511" duration="1426000" />
+      <workItem from="1716790319192" duration="2199000" />
+      <workItem from="1716890261166" duration="4056000" />
     </task>
     <task id="LOCAL-00001" summary="setting : be project init">
       <option name="closed" value="true" />
