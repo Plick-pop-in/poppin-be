@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat : UserChatRepository 생성" />
+    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="fix: 메인페이지 슬라이드 메인이미지 불러오는 부분 테이블 인식 오류 수정">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/PopupImageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/PopupImageRepository.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +41,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="deploy" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
@@ -70,6 +79,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "deploy",
+    "git-widget-placeholder": "fix/#1",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/study_spring/hello-spring",
     "node.js.detected.package.eslint": "true",
@@ -208,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716125456545</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix: 메인페이지 슬라이드 메인이미지 불러오는 부분 테이블 인식 오류 수정">
+      <option name="closed" value="true" />
+      <created>1716896281175</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716896281175</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +248,10 @@
     <MESSAGE value="setting : gitignore 수정" />
     <MESSAGE value="feat : UserChatList 생성" />
     <MESSAGE value="feat : UserChatRepository 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : UserChatRepository 생성" />
+    <MESSAGE value="feat: 메인페이지 좋아요 top3 관련 좋아요 개수 쿼리" />
+    <MESSAGE value="fix: 메인페이지 top3 팝업불러올때 기간과 좋아요 개수별로 불러오는 기능 오류 수정" />
+    <MESSAGE value="fix: 메인페이지 슬라이드 메인이미지 불러오는 부분 테이블 인식 오류 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 메인페이지 슬라이드 메인이미지 불러오는 부분 테이블 인식 오류 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
