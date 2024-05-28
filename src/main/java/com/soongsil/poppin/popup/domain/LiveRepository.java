@@ -17,8 +17,8 @@ public interface LiveRepository extends JpaRepository<Popup,Long> {
     List<Popup> findPopupBeforeEndDate(LocalDateTime currentDate, Pageable pageable);
 
     // 팝업 별 참여한 인원 수 가져오기
-    @Query("SELECT COUNT(uc.userId) " +
+    @Query("SELECT COUNT(uc) " +
             "FROM UserChat uc " +
-            "GROUP BY uc.popupId")
-    long getJoinedPeopleCnt(@Param("popuupId") Long popupId);
+            "WHERE uc.popup.popupId = :popupId")
+    long getJoinedPeopleCnt(@Param("popupId") Long popupId);
 }
