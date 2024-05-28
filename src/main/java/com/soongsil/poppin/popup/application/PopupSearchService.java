@@ -1,6 +1,7 @@
 package com.soongsil.poppin.popup.application;
 
 import com.soongsil.poppin.popup.application.response.DetailPopup;
+import com.soongsil.poppin.popup.application.response.InProgressPopup;
 import com.soongsil.poppin.popup.application.response.TopPopup;
 import com.soongsil.poppin.popup.domain.Popup;
 import com.soongsil.poppin.popup.domain.PopupImage;
@@ -11,8 +12,11 @@ import com.soongsil.poppin.global.response.ErrorCode;
 import com.soongsil.poppin.popup.domain.PopupRepository;
 import com.soongsil.poppin.heart.domain.HeartRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +67,32 @@ public class PopupSearchService {
         }
 
         return top3Popups;
+    }
+
+    // 메인페이지 진행중 팝업 불러오기
+    public List<InProgressPopup> getInProgressPopups(int page, int size) {
+        List<InProgressPopup> inProgressPopups = new ArrayList<>();
+
+        // 현재 날짜와 시간
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // 진행중인 팝업 조회
+        List<Popup> inProgressPopupsList = popupRepository.findInProgressPopups(currentDateTime, PageRequest.of(page, size));
+
+        for (Popup popup : inProgressPopupsList) {
+            // 팝업 이미지 URL 가져오기
+            String popupImageUrl = popup.getPopupImages().get(0).getPopupImageUrl();
+
+            // 팝업 기간 구성 (yyyy.MM.dd - yyyy.MM.dd)
+            String startDate = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String endDate = popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String popupPeriod = startDate + " - " + endDate;
+
+            // InProgressPopup 객체 생성 및 리스트에 추가
+            inProgressPopups.add(new InProgressPopup(popupImageUrl, popup.getPopupName(), popupPeriod));
+        }
+
+        return inProgressPopups;
     }
 
     //팝업 상세페이지
