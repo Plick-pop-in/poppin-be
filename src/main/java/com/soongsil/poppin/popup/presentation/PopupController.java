@@ -1,6 +1,7 @@
 package com.soongsil.poppin.popup.presentation;
 
 
+import com.soongsil.poppin.category.domain.Category;
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.popup.application.PopupSearchService;
 import com.soongsil.poppin.popup.application.response.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/v1/popup")
@@ -69,5 +71,33 @@ public class PopupController {
             @RequestParam(value = "size", defaultValue = "5") int size) {
         List<Live> liveList = popupSearchService.getLiveList(page, size);
         return ResponseDto.map(HttpStatus.OK.value(), "라이브 리스트 불러오기", liveList);
+    }
+
+    @GetMapping("/popuplist")
+    public ResponseDto<List<PopupList>> getPopupListWithFilter(
+            @RequestParam(value = "category") Map<String, Boolean> categories,
+            @RequestParam(value = "period") String period,
+            @RequestParam(value = "search") String search
+    ){
+        // 전달된 카테고리 정보를 CategoryFilter 객체로 변환
+        Category category = new Category(
+                categories.get("fashion"),
+                categories.get("beauty"),
+                categories.get("food"),
+                categories.get("celeb"),
+                categories.get("character"),
+                categories.get("living"),
+                categories.get("digital"),
+                categories.get("game")
+        );
+
+        List<PopupList> popupList = null;
+        if (search.isEmpty()){
+            search=null;
+        }
+
+        popupList= popupSearchService.getPopupListWithSearchAndFilter(category, period, search);
+
+        return ResponseDto.map(HttpStatus.OK.value(), "필터링한 팝업 리스트 불러오기 성공!", popupList);
     }
 }
