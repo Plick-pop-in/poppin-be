@@ -65,9 +65,11 @@ public class PopupController {
     // 라이브 리스트 불러오기
     @GetMapping("/live")
     public ResponseDto<List<Live>> getLiveLists(
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "5") int size) {
-        List<Live> liveList = popupSearchService.getLiveList(page, size);
+            @RequestParam(value = "keyword", required = false) String keyword) {
+        // 키워드 출력
+        System.out.println("Keyword: " + keyword);
+
+        List<Live> liveList = popupSearchService.getLiveLists(keyword);
         return ResponseDto.map(HttpStatus.OK.value(), "라이브 리스트 불러오기", liveList);
     }
 }
