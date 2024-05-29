@@ -1,10 +1,16 @@
 package com.soongsil.poppin.userchat.application.response;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
 public class UserChatInfo {
-    private final String popupName;
+    private Long userId;
+    private String popupName;
+
+    @Builder
+    public UserChatInfo(Long userId, String popupName) {
+        this.userId = userId;
+        this.popupName = popupName;
+    }
 }
