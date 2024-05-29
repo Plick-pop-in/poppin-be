@@ -1,21 +1,14 @@
 package com.soongsil.poppin.popup.application;
 
-import com.soongsil.poppin.popup.application.response.DetailPopup;
-import com.soongsil.poppin.popup.application.response.InProgressPopup;
-import com.soongsil.poppin.popup.application.response.TopPopup;
-import com.soongsil.poppin.popup.domain.Popup;
-import com.soongsil.poppin.popup.domain.PopupImage;
-import com.soongsil.poppin.popup.domain.PopupImageRepository;
-import com.soongsil.poppin.popup.application.response.ImgUrlList;
+import com.soongsil.poppin.popup.application.response.*;
+import com.soongsil.poppin.popup.domain.*;
 import com.soongsil.poppin.popup.application.exception.PopupException;
 import com.soongsil.poppin.global.response.ErrorCode;
-import com.soongsil.poppin.popup.domain.PopupRepository;
 import com.soongsil.poppin.heart.domain.HeartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,6 +21,7 @@ public class PopupSearchService {
     private final PopupImageRepository popupImageRepository;
     private final PopupRepository popupRepository;
     private final HeartRepository heartRepository;
+    private final LiveRepository liveRepository;
 
     // 메인페이지 랜덤이미지(5개) 불러오기
     public ImgUrlList getRandomPopupImageUrls(int count) {
@@ -96,7 +90,7 @@ public class PopupSearchService {
     }
 
     //팝업 상세페이지
-    public DetailPopup getDetailPopupById(Long popupId){
+    public DetailPopup getDetailPopupById(Long popupId) {
         //popupId로 해당 이미지 전부 가져오기
         List<PopupImage> popupImagesById = popupImageRepository.findPopupImagesById(popupId);
         if (popupImagesById.isEmpty()) {
@@ -115,16 +109,51 @@ public class PopupSearchService {
         String popupPageLink = popup.getPopupPageLink();
         String popupLocation = popup.getPopupLocation();
         String popupCity = popup.getPopupCity();
-        String popupLocal= popup.getPopupLocal();
+        String popupLocal = popup.getPopupLocal();
 
         String startDate = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
         String endDate = popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
-        String popupPeriod = startDate +" - " + endDate;
+        String popupPeriod = startDate + " - " + endDate;
 
         // 하트개수 가져오기
         Long likeCount = heartRepository.countHeartById(popupId);
 
         return new DetailPopup(popupName, popupTime, popupIntro, popupPageLink, popupLocation, popupCity, popupLocal, popupPeriod, likeCount, imageUrlList);
+    }
+
+    // 라이브 리스트 불러오기
+    public List<Live> getLiveList(int page, int size) {
+        List<Live> liveList = new ArrayList<>();
+
+        // 현재 날짜와 시간
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // 종료 이전 팝업 조회
+        List<Popup> popupBeforeEndDateList = liveRepository.findPopupBeforeEndDate(currentDateTime, PageRequest.of(page, size));
+
+        for (Popup popup : popupBeforeEndDateList) {
+            // 팝업 이미지 URL 가져오기
+            String popupImageUrl = popup.getPopupImages().isEmpty() ? null : popup.getPopupImages().get(0).getPopupImageUrl();
+
+            // 팝업 기간 구성 (yyyy.MM.dd - yyyy.MM.dd)
+            String startDate = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String endDate = popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String popupPeriod = startDate + " - " + endDate;
+
+            String popupName = popup.getPopupName();
+            String popupLocation = popup.getPopupLocation();
+            String popupCity = popup.getPopupCity();
+            String popupLocal = popup.getPopupLocal();
+            long popupId = popup.getPopupId();
+
+            // 참여한 사람 수 가져오기
+            long joinedPeopleCnt = liveRepository.getJoinedPeopleCnt(popupId);
+
+            Live live = new Live(popupImageUrl, popupName, popupLocation, popupCity, popupLocal, popupPeriod, joinedPeopleCnt);
+            liveList.add(live);
+        }
+
+        return liveList;
     }
 
 }

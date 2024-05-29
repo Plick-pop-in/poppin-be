@@ -3,14 +3,12 @@ package com.soongsil.poppin.popup.presentation;
 
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.popup.application.PopupSearchService;
-import com.soongsil.poppin.popup.application.response.DetailPopup;
-import com.soongsil.poppin.popup.application.response.ImgUrlList;
-import com.soongsil.poppin.popup.application.response.InProgressPopup;
-import com.soongsil.poppin.popup.application.response.TopPopup;
+import com.soongsil.poppin.popup.application.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -62,5 +60,14 @@ public class PopupController {
             }
             return ResponseDto.map(HttpStatus.NOT_FOUND.value(), "getDetailPopupById 에러 발생.", null);
         }
+    }
+
+    // 라이브 리스트 불러오기
+    @GetMapping("/live")
+    public ResponseDto<List<Live>> getLiveLists(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size) {
+        List<Live> liveList = popupSearchService.getLiveList(page, size);
+        return ResponseDto.map(HttpStatus.OK.value(), "라이브 리스트 불러오기", liveList);
     }
 }
