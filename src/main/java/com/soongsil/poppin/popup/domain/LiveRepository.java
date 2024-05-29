@@ -21,4 +21,10 @@ public interface LiveRepository extends JpaRepository<Popup,Long> {
             "FROM UserChat uc " +
             "WHERE uc.popup.popupId = :popupId")
     long getJoinedPeopleCnt(@Param("popupId") Long popupId);
+
+    // 라이브 리스트 중 검색어로 검색하는 쿼리
+    @Query("SELECT p " +
+            "FROM Popup p " +
+            "WHERE p.popupName LIKE %:keyword%")
+    List<Popup> findPopupSearchByKeyword(@Param("keyword") String keyword);
 }
