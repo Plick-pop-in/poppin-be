@@ -6,6 +6,8 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserChatRepository extends JpaRepository<UserChat, Long> {
 
@@ -13,5 +15,5 @@ public interface UserChatRepository extends JpaRepository<UserChat, Long> {
     @Query("SELECT uc.popup.popupName " +
             "FROM UserChat uc " +
             "WHERE uc.member.userId = :userId")
-    Page<UserChat> findUserChatsByMemberUserId(Long userId, Pageable pageable);
+    List<UserChat> findUserChatsByMemberUserId(Long userId);
 }

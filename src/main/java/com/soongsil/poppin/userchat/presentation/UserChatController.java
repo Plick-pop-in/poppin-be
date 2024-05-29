@@ -22,6 +22,7 @@ public class UserChatController {
                                                            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                                            @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
         try {
+            System.out.println("Requested userId: " + userId); // userId 출력
             List<UserChatInfo> userChatList = userChatSearchService.getUserChats(page, size, userId);
             return ResponseDto.map(HttpStatus.OK.value(), "유저 채팅 리스트 불러오기 성공", userChatList);
         } catch (Exception ex) {
