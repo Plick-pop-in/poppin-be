@@ -1,6 +1,7 @@
 package com.soongsil.poppin.popup.application;
 
 import com.soongsil.poppin.popup.application.response.DetailPopup;
+import com.soongsil.poppin.popup.application.response.InProgressPopup;
 import com.soongsil.poppin.popup.application.response.TopPopup;
 import com.soongsil.poppin.popup.domain.Popup;
 import com.soongsil.poppin.popup.domain.PopupImage;
@@ -11,12 +12,11 @@ import com.soongsil.poppin.global.response.ErrorCode;
 import com.soongsil.poppin.popup.domain.PopupRepository;
 import com.soongsil.poppin.heart.domain.HeartRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,20 +47,52 @@ public class PopupSearchService {
 
     // 메인페이지 좋아요 top3 불러오기
     public List<TopPopup> getTop3PopupsWithMostLikes() {
-        Pageable pageable = PageRequest.of(0, 3); // 첫 번째 페이지에서 최대 3개 결과 요청
-        Page<Object[]> top3PopupsWithMostLikes = popupRepository.findTop3ByOrderByLikeCountDesc(pageable);
-        return top3PopupsWithMostLikes.getContent().stream()
-                .map(this::mapToPopup)
-                .collect(Collectors.toList());
+        // 좋아요가 가장 많은 상위 3개 팝업 ID 가져오기
+        List<Long> top3PopupIds = popupRepository.findTop3PopupIdsWithMostLikes();
+
+        // 최상위 3개 팝업에 대한 상세 정보 조회
+        List<TopPopup> top3Popups = new ArrayList<>();
+        for (Long popupId : top3PopupIds) {
+            Popup popup = popupRepository.findById(popupId)
+                    .orElseThrow(() -> new PopupException(ErrorCode.POPUP_NOT_FOUND));
+
+            String popupImage = popup.getPopupImages().get(0).getPopupImageUrl();
+            String popupName = popup.getPopupName();
+            String startDate = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String endDate = popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String popupPeriod = startDate + " - " + endDate;
+            Long likeCount = heartRepository.countHeartByPopup(popupId);
+
+            top3Popups.add(new TopPopup(popupImage, popupName, popupPeriod, likeCount));
+        }
+
+        return top3Popups;
     }
 
-    private TopPopup mapToPopup(Object[] row) {
-        String popupImage = (String) row[0];
-        String popupName = (String) row[1];
-        String popupPeriod = (String) row[2];
-        Long likeCount = (Long) row[3];
+    // 메인페이지 진행중 팝업 불러오기
+    public List<InProgressPopup> getInProgressPopups(int page, int size) {
+        List<InProgressPopup> inProgressPopups = new ArrayList<>();
 
-        return new TopPopup(popupImage, popupName, popupPeriod, likeCount);
+        // 현재 날짜와 시간
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // 진행중인 팝업 조회
+        List<Popup> inProgressPopupsList = popupRepository.findInProgressPopups(currentDateTime, PageRequest.of(page, size));
+
+        for (Popup popup : inProgressPopupsList) {
+            // 팝업 이미지 URL 가져오기
+            String popupImageUrl = popup.getPopupImages().get(0).getPopupImageUrl();
+
+            // 팝업 기간 구성 (yyyy.MM.dd - yyyy.MM.dd)
+            String startDate = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String endDate = popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+            String popupPeriod = startDate + " - " + endDate;
+
+            // InProgressPopup 객체 생성 및 리스트에 추가
+            inProgressPopups.add(new InProgressPopup(popupImageUrl, popup.getPopupName(), popupPeriod));
+        }
+
+        return inProgressPopups;
     }
 
     //팝업 상세페이지
