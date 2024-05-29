@@ -75,21 +75,19 @@ public class PopupController {
 
     @GetMapping("/popuplist")
     public ResponseDto<List<PopupList>> getPopupListWithFilter(
-            @RequestParam(value = "category") Map<String, Boolean> categories,
+            @RequestParam(value = "fashion") Boolean fashion,
+            @RequestParam(value = "beauty") Boolean beauty,
+            @RequestParam(value = "food") Boolean food,
+            @RequestParam(value = "celeb") Boolean celeb,
+            @RequestParam(value = "digital") Boolean digital,
+            @RequestParam(value = "character") Boolean character,
+            @RequestParam(value = "living") Boolean living,
+            @RequestParam(value = "game") Boolean game,
             @RequestParam(value = "period") String period,
             @RequestParam(value = "search") String search
     ){
         // 전달된 카테고리 정보를 CategoryFilter 객체로 변환
-        Category category = new Category(
-                categories.get("fashion"),
-                categories.get("beauty"),
-                categories.get("food"),
-                categories.get("celeb"),
-                categories.get("character"),
-                categories.get("living"),
-                categories.get("digital"),
-                categories.get("game")
-        );
+        Category category = new Category(fashion,beauty,food,celeb,character,living,digital,game);
 
         List<PopupList> popupList = null;
         if (search.isEmpty()){

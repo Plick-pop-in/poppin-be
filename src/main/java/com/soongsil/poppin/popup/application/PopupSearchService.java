@@ -159,8 +159,6 @@ public class PopupSearchService {
     }
 
 
-
-
     //팝업 상세페이지 가져오기 search 값 + 필터링 값
     public List<PopupList> getPopupListWithSearchAndFilter(Category category, String period, String search) {
         List<PopupList> popupList = new ArrayList<>();
@@ -169,18 +167,17 @@ public class PopupSearchService {
         // 현재 날짜와 시간
         LocalDateTime currentDateTime = LocalDateTime.now();
 
-        if(period.equals("all") ) {     //기간 상관없이 모든 팝업
-            popupsListWithPeriod = popupRepository.findAllPopupsWithFilters(category, search);
-        }else if (period.equals("open")) {     //현재 진행중인 팝업
-            // 진행중인 팝업 조회
-            popupsListWithPeriod = popupRepository.findOpenPopupsWithFilters(category, currentDateTime, search);
+        if (period.equals("all")) {     //기간 상관없이 모든 팝업
+            popupsListWithPeriod = popupRepository.findAllPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), search);
+        } else if (period.equals("open")) {     //현재 진행중인 팝업
+            popupsListWithPeriod = popupRepository.findOpenPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
         } else if (period.equals("will")) {
-            popupsListWithPeriod = popupRepository.findWillPopupsWithFilters(category, currentDateTime, search);
-        } else if(period.equals("close")){   //끝난 팝업
-            popupsListWithPeriod = popupRepository.findClosePopupsWithFilters(category, currentDateTime, search);
+            popupsListWithPeriod = popupRepository.findWillPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
+        } else if (period.equals("close")) {   //끝난 팝업
+            popupsListWithPeriod = popupRepository.findClosePopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
         }
 
-        if(popupsListWithPeriod!=null) {
+        if (popupsListWithPeriod != null) {
             for (Popup popup : popupsListWithPeriod) {
 
                 Long popupId = popup.getPopupId();
@@ -194,7 +191,7 @@ public class PopupSearchService {
                 Long likeCount = heartRepository.countHeartByPopup(popupId);
 
                 // InProgressPopup 객체 생성 및 리스트에 추가
-                popupList.add(new PopupList(popupId ,popupImage, popupName, popupPeriod, likeCount));
+                popupList.add(new PopupList(popupId, popupImage, popupName, popupPeriod, likeCount));
             }
         }
 
