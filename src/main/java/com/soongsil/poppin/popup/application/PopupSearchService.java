@@ -121,36 +121,33 @@ public class PopupSearchService {
         return new DetailPopup(popupName, popupTime, popupIntro, popupPageLink, popupLocation, popupCity, popupLocal, popupPeriod, likeCount, imageUrlList);
     }
 
-    // 라이브 리스트 불러오기
-    public List<Live> getLiveList(int page, int size) {
+    // 라이브 리스트 불러오기 (검색어 포함)
+    public List<Live> getLiveLists(String keyword) {
         List<Live> liveList = new ArrayList<>();
 
         // 현재 날짜와 시간
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         // 종료 이전 팝업 조회
-        List<Popup> popupBeforeEndDateList = liveRepository.findPopupBeforeEndDate(currentDateTime, PageRequest.of(page, size));
+        List<Popup> popupList = liveRepository.findPopupByKeywordAndEndDateBefore(keyword, currentDateTime);
 
-        for (Popup popup : popupBeforeEndDateList) {
-            // 팝업 이미지 URL 가져오기
+        for (Popup popup : popupList) {
             String popupImageUrl = popup.getPopupImages().isEmpty() ? null : popup.getPopupImages().get(0).getPopupImageUrl();
 
-            // 팝업 기간 구성 (yyyy.MM.dd - yyyy.MM.dd)
-            String startDate = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
-            String endDate = popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
-            String popupPeriod = startDate + " - " + endDate;
+            // 날짜 포맷을 변경하여 yy.MM.dd 형식으로 표시
+            String popupPeriod = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd")) + " - " +
+                    popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
 
-            String popupName = popup.getPopupName();
-            String popupLocation = popup.getPopupLocation();
-            String popupCity = popup.getPopupCity();
-            String popupLocal = popup.getPopupLocal();
-            long popupId = popup.getPopupId();
-
-            // 참여한 사람 수 가져오기
-            long joinedPeopleCnt = liveRepository.getJoinedPeopleCnt(popupId);
-
-            Live live = new Live(popupImageUrl, popupName, popupLocation, popupCity, popupLocal, popupPeriod, joinedPeopleCnt);
-            liveList.add(live);
+            // 불필요한 변수를 줄이고, 바로 Live 객체를 생성하여 liveList에 추가
+            liveList.add(new Live(
+                    popupImageUrl,
+                    popup.getPopupName(),
+                    popup.getPopupLocation(),
+                    popup.getPopupCity(),
+                    popup.getPopupLocal(),
+                    popupPeriod,
+                    liveRepository.getJoinedPeopleCnt(popup.getPopupId())
+            ));
         }
 
         return liveList;
