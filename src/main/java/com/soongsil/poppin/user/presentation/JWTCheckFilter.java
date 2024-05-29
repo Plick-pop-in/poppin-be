@@ -32,7 +32,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         log.info("check uri.............." + path);
 
         //user/login 경로의 호출은 JWT token 체크하지 않음
-        if(path.startsWith("/user/login")) {
+        if(path.startsWith("/v1/user/login")) {
             return true;
         }
 
@@ -94,58 +94,4 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
         chain.doFilter(request, response);
     }
-
-//    @Override
-//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//
-//        log.info("------------------------JWTCheckFilter.......................");
-//
-//        // JWT Authorization 헤더
-//        String authHeaderStr = request.getHeader("Authorization");
-//
-//        try {
-//            // Bearer accestoken -> accesstoken 추출 (문자열에서 'Bearer ' 제거한다는 뜻)
-//            String accessToken = authHeaderStr.substring(7);
-//            // accessToken 유효성 검사
-//            log.info(accessToken);
-//            Map<String, Object> claims = JWTUtil.validateToken(accessToken);
-//
-//            log.info("JWT claims: " + claims);
-//
-//            String name = (String) claims.get("name");
-//            String email = (String) claims.get("email");
-//            String password = (String) claims.get("pw");
-//            String nickname = (String) claims.get("nickname");
-//            String role = (String) claims.get("role");
-//            // Boolean social = (Boolean) claims.get("social");
-//
-//            UserDto userDto = new UserDto(name, email, password, nickname);
-//
-//            log.info("-----------------------------------");
-//            log.info(userDto);
-//            log.info(userDto.getAuthorities());
-//
-//            UsernamePasswordAuthenticationToken authenticationToken
-//                    = new UsernamePasswordAuthenticationToken(userDto, password, userDto.getAuthorities());
-//
-//            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-//
-//            // 다음 목적지로 이동
-//            filterChain.doFilter(request, response);
-//
-//        }catch(Exception e){
-//
-//            log.error("JWT Check Error..............");
-//            log.error(e.getMessage());
-//
-//            Gson gson = new Gson();
-//            String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
-//
-//            response.setContentType("application/json");
-//            PrintWriter printWriter = response.getWriter();
-//            printWriter.println(msg);
-//            printWriter.close();
-//
-//        }
-//    }
 }

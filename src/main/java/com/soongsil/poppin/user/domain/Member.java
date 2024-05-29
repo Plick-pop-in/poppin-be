@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name="popin_user")
+@Table(name="user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
@@ -36,6 +36,9 @@ public class Member {
 
     @Column(name = "user_point")
     private Long point;
+
+    @Column(name = "user_social")
+    private boolean social;
 
     @Column(name="created_date", nullable = false)
     private LocalDateTime createdDate;

@@ -30,29 +30,22 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("-----security config------");
 
-        http.cors(httpSecurityCorsConfigurer -> {
-            httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
-        });
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
-        http.sessionManagement(httpSecuritySessionManagementConfigurer -> {
-            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.NEVER);
-        });
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
+        http.csrf(csrf -> csrf.disable());
 
-        http.formLogin(config -> {
-            config.loginPage("/user/login");
-            // 로그인 성공 시
-            config.successHandler(new LoginSuccessHandler());
-            // 로그인 실패 시
-            config.failureHandler(new LoginFailHandler());
+        http.formLogin(form -> {
+            form.loginPage("/v1/user/login")
+                    .loginProcessingUrl("/v1/user/login")
+                    .successHandler(new LoginSuccessHandler())
+                    .failureHandler(new LoginFailHandler());
         });
 
         http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
-           httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(new AccessHandler());
-        });
+        http.exceptionHandling(exception -> exception.accessDeniedHandler(new AccessHandler()));
 
         return http.build();
     }
@@ -65,7 +58,6 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
