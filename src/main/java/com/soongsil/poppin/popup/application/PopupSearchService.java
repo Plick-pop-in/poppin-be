@@ -1,5 +1,6 @@
 package com.soongsil.poppin.popup.application;
 
+import com.soongsil.poppin.category.domain.Category;
 import com.soongsil.poppin.popup.application.response.*;
 import com.soongsil.poppin.popup.domain.*;
 import com.soongsil.poppin.popup.application.exception.PopupException;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -153,4 +155,43 @@ public class PopupSearchService {
         return liveList;
     }
 
+    //팝업 상세페이지 가져오기 search 값 + 필터링 값
+    public List<PopupList> getPopupListWithSearchAndFilter(Category category, String period, String search) {
+        List<PopupList> popupList = new ArrayList<>();
+        List<Popup> popupsListWithPeriod = null;
+
+        // 현재 날짜와 시간
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        if (period.equals("all")) {     //기간 상관없이 모든 팝업
+            popupsListWithPeriod = popupRepository.findAllPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), search);
+        } else if (period.equals("open")) {     //현재 진행중인 팝업
+            popupsListWithPeriod = popupRepository.findOpenPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
+        } else if (period.equals("will")) {
+            popupsListWithPeriod = popupRepository.findWillPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
+        } else if (period.equals("close")) {   //끝난 팝업
+            popupsListWithPeriod = popupRepository.findClosePopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
+        }
+
+        if (popupsListWithPeriod != null) {
+            for (Popup popup : popupsListWithPeriod) {
+
+                Long popupId = popup.getPopupId();
+                String popupImage = popup.getPopupImages().get(0).getPopupImageUrl();   // 팝업 이미지 URL 가져오기
+                String popupName = popup.getPopupName();
+
+                // 팝업 기간 구성 (yyyy.MM.dd - yyyy.MM.dd)
+                String startDate = popup.getPopupStartDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+                String endDate = popup.getPopupEndDate().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+                String popupPeriod = startDate + " - " + endDate;
+                Long likeCount = heartRepository.countHeartByPopup(popupId);
+
+                // InProgressPopup 객체 생성 및 리스트에 추가
+                popupList.add(new PopupList(popupId, popupImage, popupName, popupPeriod, likeCount));
+            }
+        }
+
+        return popupList;
+    }
 }
+
