@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name="popin_user")
+@Table(name="user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
