@@ -58,7 +58,7 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
             "(c.living = true AND :living = true) OR " +
             "(c.digital = true AND :digital = true) OR " +
             "(c.game = true AND :game = true)) " +
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "AND ( :search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findAllPopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                          boolean charactor, boolean living,boolean digital, boolean game,
@@ -77,7 +77,7 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
             "(c.digital = true AND :digital = true) OR " +
             "(c.game = true AND :game = true)) " +
             "AND (date(now()) BETWEEN date(p.popupStartDate) AND date(p.popupEndDate)) " + // 현재 날짜가 시작일과 종료일 사이에 있는 경우
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "AND (:search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findOpenPopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                           boolean charactor, boolean living,boolean digital, boolean game,
@@ -96,7 +96,7 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
             "(c.digital = true AND :digital = true) OR " +
             "(c.game = true AND :game = true)) " +
             "AND (date(now()) < date(p.popupStartDate)) " + // 현재 날짜가 시작일 이전인 경우
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "AND (:search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findWillPopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                           boolean charactor, boolean living,boolean digital, boolean game,
@@ -115,7 +115,7 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
             "(c.digital = true AND :digital = true) OR " +
             "(c.game = true AND :game = true)) " +
             "AND (date(p.popupEndDate) < date(now()))" + // 현재 날짜가 종료일 이후인 경우
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "AND ( :search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findClosePopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                            boolean charactor, boolean living,boolean digital, boolean game,
