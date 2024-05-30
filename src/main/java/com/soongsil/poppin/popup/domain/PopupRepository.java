@@ -50,15 +50,15 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
     @Query("SELECT DISTINCT p " +
             "FROM Popup p " +
             "JOIN p.category c " + // Popup 엔티티와 Category 엔티티의 조인
-            "WHERE (c.fashion = true AND :fashion = true) OR " +
+            "WHERE ((c.fashion = true AND :fashion = true) OR " +
             "(c.beauty = true AND :beauty = true) OR " +
             "(c.food = true AND :food = true) OR " +
             "(c.celeb = true AND :celeb = true) OR " +
             "(c.charactor = true AND :charactor = true) OR " +
             "(c.living = true AND :living = true) OR " +
             "(c.digital = true AND :digital = true) OR " +
-            "(c.game = true AND :game = true) " +
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "(c.game = true AND :game = true)) " +
+            "AND ( :search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findAllPopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                          boolean charactor, boolean living,boolean digital, boolean game,
@@ -68,56 +68,56 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
     @Query("SELECT DISTINCT p " +
             "FROM Popup p " +
             "JOIN p.category c " + // Popup 엔티티와 Category 엔티티의 조인
-            "WHERE (c.fashion = true AND :fashion = true) OR " +
+            "WHERE ((c.fashion = true AND :fashion = true) OR " +
             "(c.beauty = true AND :beauty = true) OR " +
             "(c.food = true AND :food = true) OR " +
             "(c.celeb = true AND :celeb = true) OR " +
             "(c.charactor = true AND :charactor = true) OR " +
             "(c.living = true AND :living = true) OR " +
             "(c.digital = true AND :digital = true) OR " +
-            "(c.game = true AND :game = true) " +
-            "AND :currentDate BETWEEN p.popupStartDate AND p.popupEndDate " + // 현재 날짜가 시작일과 종료일 사이에 있는 경우
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "(c.game = true AND :game = true)) " +
+            "AND (date(now()) BETWEEN date(p.popupStartDate) AND date(p.popupEndDate)) " + // 현재 날짜가 시작일과 종료일 사이에 있는 경우
+            "AND (:search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findOpenPopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                           boolean charactor, boolean living,boolean digital, boolean game,
-                                          LocalDateTime currentDate, String search);
+                                          String search);
 
     // 필터링 + 시작 전인 팝업 가져오는 쿼리
     @Query("SELECT DISTINCT p " +
             "FROM Popup p " +
             "JOIN p.category c " + // Popup 엔티티와 Category 엔티티의 조인
-            "WHERE (c.fashion = true AND :fashion = true) OR " +
+            "WHERE ((c.fashion = true AND :fashion = true) OR " +
             "(c.beauty = true AND :beauty = true) OR " +
             "(c.food = true AND :food = true) OR " +
             "(c.celeb = true AND :celeb = true) OR " +
             "(c.charactor = true AND :charactor = true) OR " +
             "(c.living = true AND :living = true) OR " +
             "(c.digital = true AND :digital = true) OR " +
-            "(c.game = true AND :game = true) " +
-            "AND :currentDate < p.popupStartDate " + // 현재 날짜가 시작일 이전인 경우
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "(c.game = true AND :game = true)) " +
+            "AND (date(now()) < date(p.popupStartDate)) " + // 현재 날짜가 시작일 이전인 경우
+            "AND (:search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findWillPopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                           boolean charactor, boolean living,boolean digital, boolean game,
-                                          LocalDateTime currentDate, String search);
+                                          String search);
 
     // 필터링 + 종료된 팝업 가져오는 쿼리
     @Query("SELECT DISTINCT p " +
             "FROM Popup p " +
             "JOIN p.category c " + // Popup 엔티티와 Category 엔티티의 조인
-            "WHERE (c.fashion = true AND :fashion = true) OR " +
+            "WHERE ((c.fashion = true AND :fashion = true) OR " +
             "(c.beauty = true AND :beauty = true) OR " +
             "(c.food = true AND :food = true) OR " +
             "(c.celeb = true AND :celeb = true) OR " +
             "(c.charactor = true AND :charactor = true) OR " +
             "(c.living = true AND :living = true) OR " +
             "(c.digital = true AND :digital = true) OR " +
-            "(c.game = true AND :game = true) " +
-            "AND :currentDate > p.popupEndDate " + // 현재 날짜가 종료일 이후인 경우
-            "AND (:search is null OR p.popupName LIKE %:search%)")
+            "(c.game = true AND :game = true)) " +
+            "AND (date(p.popupEndDate) < date(now()))" + // 현재 날짜가 종료일 이후인 경우
+            "AND ( :search is null OR p.popupName LIKE LOWER(CONCAT('%', :search, '%')))")
     // 검색어가 있으면 검색어에 맞는 팝업만 선택
     List<Popup> findClosePopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                            boolean charactor, boolean living,boolean digital, boolean game,
-                                           LocalDateTime currentDate, String search);
+                                           String search);
 }

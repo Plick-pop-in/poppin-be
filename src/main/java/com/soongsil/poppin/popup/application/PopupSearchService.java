@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -160,17 +159,14 @@ public class PopupSearchService {
         List<PopupList> popupList = new ArrayList<>();
         List<Popup> popupsListWithPeriod = null;
 
-        // 현재 날짜와 시간
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
         if (period.equals("all")) {     //기간 상관없이 모든 팝업
             popupsListWithPeriod = popupRepository.findAllPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), search);
         } else if (period.equals("open")) {     //현재 진행중인 팝업
-            popupsListWithPeriod = popupRepository.findOpenPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
+            popupsListWithPeriod = popupRepository.findOpenPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(),  search);
         } else if (period.equals("will")) {
-            popupsListWithPeriod = popupRepository.findWillPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
+            popupsListWithPeriod = popupRepository.findWillPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(),  search);
         } else if (period.equals("close")) {   //끝난 팝업
-            popupsListWithPeriod = popupRepository.findClosePopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), currentDateTime, search);
+            popupsListWithPeriod = popupRepository.findClosePopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(),  search);
         }
 
         if (popupsListWithPeriod != null) {
