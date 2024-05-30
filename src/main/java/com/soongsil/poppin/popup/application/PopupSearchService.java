@@ -58,7 +58,7 @@ public class PopupSearchService {
             String popupPeriod = startDate + " - " + endDate;
             Long likeCount = heartRepository.countHeartByPopup(popupId);
 
-            top3Popups.add(new TopPopup(popupImage, popupName, popupPeriod, likeCount));
+            top3Popups.add(new TopPopup(popupId,popupImage, popupName, popupPeriod, likeCount));
         }
 
         return top3Popups;

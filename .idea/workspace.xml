@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat : UserChatRepository 생성" />
-    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="fix: 메인페이지 슬라이드 메인이미지 불러오는 부분 테이블 인식 오류 수정">
+    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat: 메인페이지 진행중인 팝업(5개) 조회 api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/application/PopupSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/application/PopupSearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/PopupRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/domain/PopupRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/presentation/PopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/presentation/PopupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/application/response/TopPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/popup/application/response/TopPopup.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,9 +78,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "deploy",
-    "git-widget-placeholder": "fix/#1",
-    "git-widget-placeholder": "feat/#1",
+    "git-widget-placeholder": "feat/top3/#1",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/study_spring/hello-spring",
     "node.js.detected.package.eslint": "true",
@@ -180,6 +176,7 @@
       <workItem from="1716312405511" duration="1426000" />
       <workItem from="1716790319192" duration="2199000" />
       <workItem from="1716890261166" duration="4056000" />
+      <workItem from="1717073067551" duration="1883000" />
     </task>
     <task id="LOCAL-00001" summary="setting : be project init">
       <option name="closed" value="true" />

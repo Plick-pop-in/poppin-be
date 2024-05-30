@@ -4,12 +4,14 @@ import lombok.Getter;
 
 @Getter
 public class TopPopup {
+    private final Long popupId;
     private final String popupImage;
     private final String popupName;
     private final String popupPeriod;
     private final Long likeCount;
 
-    public TopPopup(String popupImage, String popupName, String popupPeriod, Long likeCount) {
+    public TopPopup(Long popupId,String popupImage, String popupName, String popupPeriod, Long likeCount) {
+        this.popupId = popupId;
         this.popupImage = popupImage;
         this.popupName = popupName;
         this.popupPeriod = popupPeriod;
