@@ -36,10 +36,11 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             return true;
         }
 
-//        //이미지 조회 경로는 체크하지 않는다면
-//        if(path.startsWith("/api/products/view/")) {
-//            return true;
-//        }
+        //이미지 조회 경로는 체크하지 않는다면
+        if(path.startsWith("/v1/popup/random-images")) {
+            log.info("건너뛰기");
+            return true;
+        }
 
         return false;
     }
@@ -57,12 +58,14 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 Map<String, Object> claims = JWTUtil.validateToken(token);
                 System.out.println("JWT claims: " + claims);
 
+                Long id = (Long) claims.get("id");
                 String name = (String) claims.get("name");
                 String email = (String) claims.get("email");
                 String password = (String) claims.get("password");
                 String nickname = (String) claims.get("nickname");
+                boolean social = (boolean) claims.get("social");
 
-                UserDto userDto = new UserDto(name, email, password, nickname);
+                UserDto userDto = new UserDto(id, name, email, password, nickname, social);
 
                 log.info("-----------------------------------");
                 log.info(userDto);

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.email = :email")
     Member getWithEmail(@Param("email") String email);
+
+    Member findBynickName(String nickName);
 }
