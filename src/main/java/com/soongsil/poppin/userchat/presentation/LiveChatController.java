@@ -1,22 +1,34 @@
 package com.soongsil.poppin.userchat.presentation;
 
-import com.soongsil.poppin.userchat.application.ChatMessage;
+import com.fasterxml.jackson.databind.ObjectMapper; // ObjectMapper 임포트 추가
+import org.springframework.stereotype.Controller;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired; // Autowired 임포트 추가
+import com.soongsil.poppin.userchat.application.ChatMessageDto;
+import com.fasterxml.jackson.core.JsonProcessingException; // JsonProcessingException 임포트 추가
 
 @Controller
-public class LiveChatController { // 클래스 이름을 LiveChatController로 변경
+public class LiveChatController {
 
-    @MessageMapping("/chat.sendMessage") // 클라이언트에서 채팅 메시지를 전송할 때 사용되는 엔드포인트
-    @SendTo("/topic/public") // 채팅 메시지를 구독하는 모든 클라이언트에게 메시지를 브로드캐스트
-    public ChatMessage sendMessage(ChatMessage chatMessage) {
-        return chatMessage;
+    @Autowired
+    private ObjectMapper objectMapper; // ObjectMapper 자동 주입
+
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessageDto sendMessage(String messageJson) throws JsonProcessingException {
+        System.out.println("받은 메시지: " + messageJson); // 메시지 출력
+        ChatMessageDto chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto.class);
+        return chatMessageDto;
     }
 
-    @MessageMapping("/chat.addUser") // 클라이언트가 채팅에 참여할 때 사용되는 엔드포인트
-    @SendTo("/topic/public") // 새로운 사용자가 채팅에 참여했음을 모든 클라이언트에게 알림
-    public ChatMessage addUser(ChatMessage chatMessage) {
-        return chatMessage;
+    @MessageMapping("/chat.addUser")
+    @SendTo("/topic/public")
+    public ChatMessageDto addUser(String messageJson) throws JsonProcessingException {
+        System.out.println("받은 메시지: " + messageJson); // 메시지 출력
+        ChatMessageDto chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto.class);
+        return chatMessageDto;
     }
 }
+
+
