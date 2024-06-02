@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface HeartRepository extends JpaRepository<Heart, Long> {
     // 메인페이지 사용 팝업별 heart 개수 count
@@ -18,6 +20,6 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
     @Query("SELECT COUNT(h) > 0 FROM Heart h WHERE h.popup.id = :popupId AND h.user.id = :userId")
     Boolean getIsLikedById(Long popupId, Long userId);
 
-
+    Optional<Heart> findHeartById(Long userId, Long popupId);
 }
 
