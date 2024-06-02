@@ -3,15 +3,13 @@ package com.soongsil.poppin.user.domain;
 import com.soongsil.poppin.heart.domain.Heart;
 import com.soongsil.poppin.userchat.domain.UserChat;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 @Table(name="user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,6 +35,9 @@ public class Member {
     @Column(name = "user_point")
     private Long point;
 
+    @Column(name = "user_social")
+    private boolean social;
+
     @Column(name="created_date", nullable = false)
     private LocalDateTime createdDate;
 
@@ -48,12 +49,13 @@ public class Member {
     private List<UserChat> userChat;
 
     @Builder
-    public Member(String name, String email, String password, String nickName, Long point){
+    public Member(String name, String email, String password, String nickName, boolean social)
+    {
         this.name = name;
         this.email =email;
         this.password = password;
         this.nickName = nickName;
-        this.point = point;
+        this.social = social;
     }
 
     @PrePersist
