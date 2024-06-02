@@ -1,34 +1,47 @@
 package com.soongsil.poppin.userchat.presentation;
 
-import com.fasterxml.jackson.databind.ObjectMapper; // ObjectMapper 임포트 추가
-import org.springframework.stereotype.Controller;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.beans.factory.annotation.Autowired; // Autowired 임포트 추가
+import org.springframework.messaging.simp.SimpMessagingTemplate; // 추가
+import org.springframework.stereotype.Controller;
 import com.soongsil.poppin.userchat.application.ChatMessageDto;
-import com.fasterxml.jackson.core.JsonProcessingException; // JsonProcessingException 임포트 추가
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
 public class LiveChatController {
 
-    @Autowired
-    private ObjectMapper objectMapper; // ObjectMapper 자동 주입
+    private final ObjectMapper objectMapper;
+    private final SimpMessagingTemplate messagingTemplate; // 추가
+
+    public LiveChatController(ObjectMapper objectMapper, SimpMessagingTemplate messagingTemplate) { // 생성자에 SimpMessagingTemplate 추가
+        this.objectMapper = objectMapper;
+        this.messagingTemplate = messagingTemplate;
+    }
 
     @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessageDto sendMessage(String messageJson) throws JsonProcessingException {
-        System.out.println("받은 메시지: " + messageJson); // 메시지 출력
+    public void sendMessage(String messageJson) throws JsonProcessingException {
+        System.out.println("받은 메시지: " + messageJson);
         ChatMessageDto chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto.class);
-        return chatMessageDto;
+
+        // 보낸 메시지에 대한 로그
+        System.out.println("보낸 메시지: " + chatMessageDto);
+
+        // 받은 메시지를 다시 클라이언트에게 보냄
+        messagingTemplate.convertAndSend("/topic/public", chatMessageDto);
     }
 
     @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessageDto addUser(String messageJson) throws JsonProcessingException {
-        System.out.println("받은 메시지: " + messageJson); // 메시지 출력
+    public void addUser(String messageJson) throws JsonProcessingException {
+        System.out.println("받은 메시지: " + messageJson);
         ChatMessageDto chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto.class);
-        return chatMessageDto;
+
+        // 보낸 메시지에 대한 로그
+        System.out.println("보낸 메시지: " + chatMessageDto);
+
+        // 받은 메시지를 다시 클라이언트에게 보냄
+        messagingTemplate.convertAndSend("/topic/public", chatMessageDto);
     }
+
 }
 
 

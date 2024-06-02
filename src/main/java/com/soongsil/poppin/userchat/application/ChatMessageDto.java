@@ -15,4 +15,13 @@ public class ChatMessageDto {
     @JsonProperty("time")
     private String time;
 
+    @Override
+    public String toString() {
+        return "ChatMessageDto{" +
+                "type='" + type + '\'' +
+                ", content='" + content + '\'' +
+                ", sender='" + sender + '\'' +
+                ", time='" + time + '\'' +
+                '}';
+    }
 }
