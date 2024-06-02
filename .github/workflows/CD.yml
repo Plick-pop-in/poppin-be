@@ -6,7 +6,7 @@ on:
 
 env:
   S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET }}
-  PROJECT_NAME: ${{ github.repository }}
+  PROJECT_NAME: poppin-be
   
 jobs:
   build:
@@ -60,5 +60,6 @@ jobs:
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name cicd-prod \
           --file-exists-behavior OVERWRITE \
-          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=cicd/$GITHUB_SHA.zip \
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip \
           --region ap-northeast-2
+          

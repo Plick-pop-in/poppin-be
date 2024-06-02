@@ -49,9 +49,13 @@ public class Category {
     @Column(name = "category_digital", nullable = false)
     private boolean digital;
 
+    // 가전/디지털
+    @Column(name = "category_game", nullable = false)
+    private boolean game;
+
     @Builder
     public Category(boolean fashion, boolean beauty, boolean food, boolean celeb,
-                    boolean charactor, boolean living, boolean digital) {
+                    boolean charactor, boolean living, boolean digital, boolean game) {
         this.fashion = fashion;
         this.beauty = beauty;
         this.food = food;
@@ -59,5 +63,6 @@ public class Category {
         this.charactor = charactor;
         this.living = living;
         this.digital = digital;
+        this.game = game;
     }
 }
