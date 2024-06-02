@@ -90,12 +90,10 @@ public class SecurityService implements UserDetailsService {
         }
 
         UserDto userDto = new UserDto(
-                member.getUserId(),
                 member.getName(),
                 member.getEmail(),
                 member.getPassword(),
-                member.getNickName(),
-                member.isSocial()
+                member.getNickName()
         );
 
         log.info(userDto);

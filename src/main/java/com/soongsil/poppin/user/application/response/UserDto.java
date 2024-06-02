@@ -7,35 +7,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserDto extends User {
-    Long id;
     private String name, email, password, nickname, role;
-    private boolean social;
 
-    public UserDto(Long id, String name, String email, String password, String nickname, boolean social) {
+    public UserDto(String name, String email, String password, String nickname) {
         super(
                 email,
                 password,
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
         );
-        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.role = "ROLE_USER";
-        this.social = social;
     }
 
     public Map<String, Object> getClaims() {
         Map<String, Object> dataMap = new HashMap<>();
 
-        dataMap.put("id", id);
         dataMap.put("name", name);
         dataMap.put("email", email);
         dataMap.put("password", password);
         dataMap.put("nickname", nickname);
         dataMap.put("role", role);
-        dataMap.put("social", social);
 
         return dataMap;
     }
