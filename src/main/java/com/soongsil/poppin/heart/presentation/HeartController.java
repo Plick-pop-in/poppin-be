@@ -19,4 +19,10 @@ public class HeartController {
         Boolean isLiked = HeartService.getIsLikedById(popupId, userId);
         return ResponseDto.map(HttpStatus.OK.value(),"좋아요 여부", isLiked);
     }
+
+    @PostMapping("/addHeart")
+    public ResponseDto<String> addHeart(@RequestParam(value = "userId") Long userId, @RequestParam(value = "popupId") Long popupId) {
+        HeartService.addHeart(popupId, userId);
+        return ResponseDto.map(HttpStatus.OK.value(), "하트 추가 성공", "하트가 성공적으로 추가되었습니다.");
+    }
 }
