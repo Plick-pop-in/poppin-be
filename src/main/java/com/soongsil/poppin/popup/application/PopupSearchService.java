@@ -117,7 +117,7 @@ public class PopupSearchService {
         String popupPeriod = startDate + " - " + endDate;
 
         // 하트개수 가져오기
-        Long likeCount = heartRepository.countHeartById(popupId);
+        Long likeCount = heartRepository.countHeartByPopup(popupId);
 
         return new DetailPopup(popupName, popupTime, popupIntro, popupPageLink, popupLocation, popupCity, popupLocal, popupPeriod, likeCount, imageUrlList);
     }

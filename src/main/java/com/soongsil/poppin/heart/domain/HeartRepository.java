@@ -15,10 +15,6 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
     @Query("SELECT COUNT(h) FROM Heart h WHERE h.popup.id = ?1")
     Long countHeartByPopup(Long popupId);
 
-    //heart 개수 Count
-    @Query(value = "SELECT count(*) FROM heart WHERE popup_id = :popupId", nativeQuery = true)
-    Long countHeartById(Long popupId);
-
     @Query("SELECT COUNT(h) > 0 FROM Heart h WHERE h.popup.id = :popupId AND h.member.id = :userId")
     Boolean getIsLikedById(Long popupId, Long userId);
 
