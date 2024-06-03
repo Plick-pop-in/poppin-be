@@ -2,7 +2,7 @@ package com.soongsil.poppin.userchat.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate; // 추가
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import com.soongsil.poppin.userchat.application.ChatMessageDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,9 +11,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class LiveChatController {
 
     private final ObjectMapper objectMapper;
-    private final SimpMessagingTemplate messagingTemplate; // 추가
+    private final SimpMessagingTemplate messagingTemplate;
 
-    public LiveChatController(ObjectMapper objectMapper, SimpMessagingTemplate messagingTemplate) { // 생성자에 SimpMessagingTemplate 추가
+    public LiveChatController(ObjectMapper objectMapper, SimpMessagingTemplate messagingTemplate) {
         this.objectMapper = objectMapper;
         this.messagingTemplate = messagingTemplate;
     }
@@ -27,7 +27,7 @@ public class LiveChatController {
         System.out.println("보낸 메시지: " + chatMessageDto);
 
         // 받은 메시지를 다시 클라이언트에게 보냄
-        messagingTemplate.convertAndSend("/topic/public", chatMessageDto);
+        messagingTemplate.convertAndSend("/sub/public", chatMessageDto);
     }
 
     @MessageMapping("/chat.addUser")
@@ -39,9 +39,9 @@ public class LiveChatController {
         System.out.println("보낸 메시지: " + chatMessageDto);
 
         // 받은 메시지를 다시 클라이언트에게 보냄
-        messagingTemplate.convertAndSend("/topic/public", chatMessageDto);
+        messagingTemplate.convertAndSend("/sub/public", chatMessageDto);
     }
-
 }
+
 
 
