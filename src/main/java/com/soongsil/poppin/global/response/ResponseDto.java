@@ -1,7 +1,12 @@
 package com.soongsil.poppin.global.response;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +17,11 @@ import lombok.NoArgsConstructor;
 public class ResponseDto<T> {
     private int statusCode;
     private String message;
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime timestamp;
     private T data;
+
 
     @Builder
     public ResponseDto(int statusCode, String message, T data) {
