@@ -6,6 +6,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import com.soongsil.poppin.userchat.application.ChatMessageDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import java.util.UUID;
 
 @Controller
 public class LiveChatController {
@@ -23,6 +24,10 @@ public class LiveChatController {
         System.out.println("받은 메시지: " + messageJson);
         ChatMessageDto chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto.class);
 
+        // UUID 생성
+        String id = UUID.randomUUID().toString();
+        chatMessageDto.setId(id);
+
         // 보낸 메시지에 대한 로그
         System.out.println("보낸 메시지: " + chatMessageDto);
 
@@ -35,6 +40,10 @@ public class LiveChatController {
         System.out.println("받은 메시지: " + messageJson);
         ChatMessageDto chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto.class);
 
+        // UUID 생성
+        String id = UUID.randomUUID().toString();
+        chatMessageDto.setId(id);
+
         // 보낸 메시지에 대한 로그
         System.out.println("보낸 메시지: " + chatMessageDto);
 
@@ -42,6 +51,3 @@ public class LiveChatController {
         messagingTemplate.convertAndSend("/sub/public", chatMessageDto);
     }
 }
-
-
-

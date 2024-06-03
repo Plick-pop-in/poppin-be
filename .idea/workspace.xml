@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="feat: 채팅 수정" />
+    <list default="true" id="e4a33368-09f4-45cf-a30c-c29284957516" name="Changes" comment="remove: dump파일 삭제">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/ChatMessageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/application/ChatMessageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/LiveChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/soongsil/poppin/userchat/presentation/LiveChatController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +180,7 @@
       <workItem from="1717117166709" duration="649000" />
       <workItem from="1717292387789" duration="712000" />
       <workItem from="1717324430511" duration="1315000" />
-      <workItem from="1717387876665" duration="2454000" />
+      <workItem from="1717387876665" duration="4989000" />
     </task>
     <task id="LOCAL-00001" summary="setting : be project init">
       <option name="closed" value="true" />
@@ -298,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717390757247</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="remove: dump파일 삭제">
+      <option name="closed" value="true" />
+      <created>1717390990402</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1717390990402</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,7 +344,8 @@
     <MESSAGE value="feat: 머지전 커밋" />
     <MESSAGE value="feat: 주고받은 메시지 확인을 위한 수정" />
     <MESSAGE value="feat: 채팅 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 채팅 수정" />
+    <MESSAGE value="remove: dump파일 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove: dump파일 삭제" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -15,6 +15,14 @@ public class ChatMessageDto {
     @JsonProperty("time")
     private String time;
 
+    @JsonProperty("id") // ID 필드 추가
+    private String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
     @Override
     public String toString() {
         return "ChatMessageDto{" +
@@ -22,6 +30,7 @@ public class ChatMessageDto {
                 ", content='" + content + '\'' +
                 ", sender='" + sender + '\'' +
                 ", time='" + time + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }
