@@ -17,13 +17,27 @@ public class HeartService {
         return isLiked;
     }
 
-    public void addHeart( long popupId, long userId){
+    public Boolean addHeart( long popupId, long userId){
         Long heartId = HeartRepository.findHeartById(popupId, userId);
-        HeartRepository.addHeart(popupId, userId);
+        Boolean state= null;
+        if(heartId==null){
+            HeartRepository.addHeart(popupId, userId);
+            state = true;
+        }else{
+            state=false;
+        }
+        return state;
     }
 
-    public void deleteHeart( Long popupId, Long userId){
+    public Boolean deleteHeart( Long popupId, Long userId){
         Long heartId = HeartRepository.findHeartById(popupId, userId);
-        HeartRepository.deleteHeart(heartId);
+        Boolean state= null;
+        if(heartId!=null){
+            HeartRepository.deleteHeart(heartId);
+            state = true;
+        }else{
+            state=false;
+        }
+        return state;
     }
 }
