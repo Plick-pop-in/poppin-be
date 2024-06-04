@@ -189,5 +189,34 @@ public class PopupSearchService {
 
         return popupList;
     }
+
+    public List<MapPopup> findMapPopup(Category category, int period, String location, String city){
+        List<MapPopup> mapPopupList = new ArrayList<>();
+        List<Popup> mapPopupListWithPeriod = null;
+
+        if(period == 0){
+            mapPopupListWithPeriod = popupRepository.findMapPopupToday(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), period, location, city);
+        } else if (period == 7) {
+            mapPopupListWithPeriod = popupRepository.findMapPopupAfterOneWeek(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), period, location, city);
+        } else if (period == 14) {
+            mapPopupListWithPeriod = popupRepository.findMapPopupAfterTwoWeeks(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), period, location, city);
+        }
+
+        if (mapPopupListWithPeriod!= null) {
+            for (Popup popup : mapPopupListWithPeriod) {
+
+                Long popupId = popup.getPopupId();
+                String popupName = popup.getPopupName();
+                String popupLocal = popup.getPopupLocal();
+                String popupCity = popup.getPopupCity();
+                String popupLocation = popup.getPopupLocation();
+
+                mapPopupList.add(new MapPopup(popupId, popupName, popupLocation, popupLocal, popupCity));
+            }
+        }
+
+        return mapPopupList;
+
+    }
 }
 
