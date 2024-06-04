@@ -58,7 +58,7 @@ public class PopupSearchService {
             String popupPeriod = startDate + " - " + endDate;
             Long likeCount = heartRepository.countHeartByPopup(popupId);
 
-            top3Popups.add(new TopPopup(popupId,popupImage, popupName, popupPeriod, likeCount));
+            top3Popups.add(new TopPopup(popupId, popupImage, popupName, popupPeriod, likeCount));
         }
 
         return top3Popups;
@@ -162,11 +162,11 @@ public class PopupSearchService {
         if (period.equals("all")) {     //기간 상관없이 모든 팝업
             popupsListWithPeriod = popupRepository.findAllPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), search);
         } else if (period.equals("open")) {     //현재 진행중인 팝업
-            popupsListWithPeriod = popupRepository.findOpenPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(),  search);
+            popupsListWithPeriod = popupRepository.findOpenPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), search);
         } else if (period.equals("will")) {
-            popupsListWithPeriod = popupRepository.findWillPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(),  search);
+            popupsListWithPeriod = popupRepository.findWillPopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), search);
         } else if (period.equals("close")) {   //끝난 팝업
-            popupsListWithPeriod = popupRepository.findClosePopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(),  search);
+            popupsListWithPeriod = popupRepository.findClosePopupsWithFilters(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), search);
         }
 
         if (popupsListWithPeriod != null) {
@@ -190,19 +190,20 @@ public class PopupSearchService {
         return popupList;
     }
 
-    public List<MapPopup> findMapPopup(Category category, int period, String location, String city){
+    // Map popup 가져오기
+    public List<MapPopup> getMapPopupList(Category category, int period, String location, String city) {
         List<MapPopup> mapPopupList = new ArrayList<>();
         List<Popup> mapPopupListWithPeriod = null;
 
-        if(period == 0){
-            mapPopupListWithPeriod = popupRepository.findMapPopupToday(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), period, location, city);
-        } else if (period == 7) {
-            mapPopupListWithPeriod = popupRepository.findMapPopupAfterOneWeek(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), period, location, city);
-        } else if (period == 14) {
-            mapPopupListWithPeriod = popupRepository.findMapPopupAfterTwoWeeks(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), period, location, city);
-        }
+        if (period == 0) {
+            mapPopupListWithPeriod = popupRepository.findMapPopupToday(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city);
+//        } else if(period.equals("7")){
+//            mapPopupListWithPeriod = popupRepository.findMapPopupAfterOneWeek(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city);
+//        } else if(period.equals("14")) {
+//            mapPopupListWithPeriod = popupRepository.findMapPopupAfterTwoWeeks(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city);
+       }
 
-        if (mapPopupListWithPeriod!= null) {
+        if (mapPopupListWithPeriod != null) {
             for (Popup popup : mapPopupListWithPeriod) {
 
                 Long popupId = popup.getPopupId();
@@ -211,7 +212,7 @@ public class PopupSearchService {
                 String popupCity = popup.getPopupCity();
                 String popupLocation = popup.getPopupLocation();
 
-                mapPopupList.add(new MapPopup(popupId, popupName, popupLocation, popupLocal, popupCity));
+                mapPopupList.add(new MapPopup(popupId, popupName, popupLocation, popupCity, popupLocal));
             }
         }
 
@@ -219,4 +220,3 @@ public class PopupSearchService {
 
     }
 }
-
