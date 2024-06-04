@@ -1,7 +1,9 @@
 package com.soongsil.poppin.userchat.presentation;
 
 import com.soongsil.poppin.global.response.ResponseDto;
+import com.soongsil.poppin.heart.application.response.PostHeart;
 import com.soongsil.poppin.userchat.application.UserChatSearchService;
+import com.soongsil.poppin.userchat.application.response.JoinUserChat;
 import com.soongsil.poppin.userchat.application.response.UserChatInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,5 +36,17 @@ public class UserChatController {
             }
             return ResponseDto.map(HttpStatus.NOT_FOUND.value(), "getUserChatList 에러 발생.", null);
         }
+    }
+
+    @PostMapping("/joinLive")
+    public ResponseDto<JoinUserChat> joinLive(@RequestParam(value = "userId") Long userId, @RequestParam(value = "popupId") Long popupId, @RequestParam(value = "minusPoint") Integer minusPoint) {
+        JoinUserChat joinUserChat = userChatSearchService.joinLive(userId, popupId, minusPoint);
+        if(joinUserChat.getJoin()){
+            return ResponseDto.map(HttpStatus.OK.value(), "이미 참가중인 채팅 방입니다.", joinUserChat);
+        }else if(!joinUserChat.getIsMoney()){
+            ResponseDto.map(HttpStatus.OK.value(), "포인트가 부족합니다.", joinUserChat);
+        }
+
+        return ResponseDto.map(HttpStatus.OK.value(), "결제가 성공적으로 이루어졌습니다.", joinUserChat);
     }
 }

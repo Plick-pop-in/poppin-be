@@ -28,7 +28,7 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     @Modifying
     @Transactional
-    @Query(" DELETE FROM Heart WHERE heartId = :heartId")
+    @Query("DELETE FROM Heart WHERE heartId = :heartId")
     void deleteHeart(Long heartId);
 
 }
