@@ -46,7 +46,7 @@ public class UserChatSearchService {
     public JoinUserChat joinLive(Long userId, Long popupId, Integer minusPoint){
         JoinUserChat joinUserChat =null;
         //참여하고 있는 채팅방인지 확인
-        Boolean isJoin = userChatRepository.existsByMemberIdAndPopupId(userId, popupId);
+        Boolean isJoin = userChatRepository.existsByMemberUserIdAndPopupPopupId(userId, popupId);
 
         //이미 참여 하고 있다면
         if(isJoin) {

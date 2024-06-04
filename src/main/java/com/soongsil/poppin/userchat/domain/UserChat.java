@@ -3,14 +3,12 @@ package com.soongsil.poppin.userchat.domain;
 import com.soongsil.poppin.popup.domain.Popup;
 import com.soongsil.poppin.user.domain.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "chat")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

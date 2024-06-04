@@ -3,15 +3,13 @@ package com.soongsil.poppin.popup.domain;
 import com.soongsil.poppin.category.domain.Category;
 import com.soongsil.poppin.heart.domain.Heart;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "popup")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

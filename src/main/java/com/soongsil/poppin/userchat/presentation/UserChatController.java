@@ -46,7 +46,6 @@ public class UserChatController {
         }else if(!joinUserChat.getIsMoney()){
             ResponseDto.map(HttpStatus.OK.value(), "포인트가 부족합니다.", joinUserChat);
         }
-
         return ResponseDto.map(HttpStatus.OK.value(), "결제가 성공적으로 이루어졌습니다.", joinUserChat);
     }
 }

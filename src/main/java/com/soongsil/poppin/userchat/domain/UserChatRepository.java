@@ -22,7 +22,8 @@ public interface UserChatRepository extends JpaRepository<UserChat, Long> {
 
     //userId와 해당하는 팝업에 있는 채팅 리스트인지
     @Query("SELECT COUNT(uc) > 0 FROM UserChat uc " +
-            "WHERE uc.member.id = :userId  " +
-            "AND ( uc.popup.id = :popupId )")
-    Boolean existsByMemberIdAndPopupId(Long userId, Long popupId);
+            "WHERE (uc.member.userId = :userId  " +
+            "AND uc.popup.id = :popupId ) ")
+    Boolean existsByMemberUserIdAndPopupPopupId(Long userId, Long popupId);
+
 }
