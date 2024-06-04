@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -194,14 +196,23 @@ public class PopupSearchService {
     public List<MapPopup> getMapPopupList(Category category, int period, String location, String city) {
         List<MapPopup> mapPopupList = new ArrayList<>();
         List<Popup> mapPopupListWithPeriod = null;
+        Date endDate = null;
 
         if (period == 0) {
             mapPopupListWithPeriod = popupRepository.findMapPopupToday(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city);
-//        } else if(period.equals("7")){
-//            mapPopupListWithPeriod = popupRepository.findMapPopupAfterOneWeek(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city);
-//        } else if(period.equals("14")) {
-//            mapPopupListWithPeriod = popupRepository.findMapPopupAfterTwoWeeks(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city);
-       }
+        } else if (period == 7) {
+            // 7일 후의 날짜를 구합니다.
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, 7);
+            endDate = calendar.getTime();
+            mapPopupListWithPeriod = popupRepository.findMapPopupAfterGivenDate(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city, endDate);
+        } else if(period == 14) {
+            // 14일 후의 날짜를 구합니다.
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, 14);
+            endDate = calendar.getTime();
+            mapPopupListWithPeriod = popupRepository.findMapPopupAfterGivenDate(category.isFashion(), category.isBeauty(), category.isFood(), category.isCeleb(), category.isCharactor(), category.isLiving(), category.isDigital(), category.isGame(), location, city, endDate);
+        }
 
         if (mapPopupListWithPeriod != null) {
             for (Popup popup : mapPopupListWithPeriod) {
