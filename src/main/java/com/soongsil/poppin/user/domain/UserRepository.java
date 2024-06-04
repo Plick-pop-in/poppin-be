@@ -20,6 +20,6 @@ public interface UserRepository extends JpaRepository<Member, Long> {
 
     @Modifying
     @Transactional
-    @Query("update Member m set m.point = :point where m.userId = :userid")
+    @Query("update Member m set m.point = :point where m.userId = :userId")
     void updatePayPoint(@Param("userId") Long userid, @Param("point") Long point);
 }
