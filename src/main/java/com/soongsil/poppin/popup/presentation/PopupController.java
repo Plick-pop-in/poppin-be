@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -99,5 +100,28 @@ public class PopupController {
         popupList= popupSearchService.getPopupListWithSearchAndFilter(category, period, search);
 
         return ResponseDto.map(HttpStatus.OK.value(), "필터링한 팝업 리스트 불러오기 성공!", popupList);
+    }
+
+    @GetMapping("/map")
+    public ResponseDto<List<MapPopup>> getMapPopup(
+            @RequestParam(value = "fashion") Boolean fashion,
+            @RequestParam(value = "beauty") Boolean beauty,
+            @RequestParam(value = "food") Boolean food,
+            @RequestParam(value = "celeb") Boolean celeb,
+            @RequestParam(value = "digital") Boolean digital,
+            @RequestParam(value = "charactor") Boolean charactor,
+            @RequestParam(value = "living") Boolean living,
+            @RequestParam(value = "game") Boolean game,
+            @RequestParam(value = "period") int period,
+            @RequestParam(value = "local") String local,
+            @RequestParam(value = "city") String city
+    ){
+        Category category = new Category(fashion, beauty,food, celeb,charactor,living,digital,game);
+
+        List<MapPopup> mapPopupList = null;
+
+        mapPopupList = popupSearchService.getMapPopupList(category,period, local,city);
+
+        return ResponseDto.map(HttpStatus.OK.value(), "지도 팝업 리스트 불러오기 성공", mapPopupList);
     }
 }
