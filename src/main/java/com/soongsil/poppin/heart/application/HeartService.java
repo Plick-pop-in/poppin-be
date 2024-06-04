@@ -13,7 +13,7 @@ public class HeartService {
     private final HeartRepository HeartRepository;
 
     public Boolean getIsLikedById( long popupId, long userId){
-        Boolean isLiked = HeartRepository.getIsLikedById(popupId, userId);
+        Boolean isLiked = HeartRepository.existsByPopupPopupIdAndMemberUserId(popupId, userId);
 
         return isLiked;
     }

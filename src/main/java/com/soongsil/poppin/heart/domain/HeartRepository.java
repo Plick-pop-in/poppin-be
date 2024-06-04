@@ -16,7 +16,7 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
     Long countHeartByPopup(Long popupId);
 
     @Query("SELECT COUNT(h) > 0 FROM Heart h WHERE h.popup.id = :popupId AND h.member.id = :userId")
-    Boolean getIsLikedById(Long popupId, Long userId);
+    Boolean existsByPopupPopupIdAndMemberUserId(Long popupId, Long userId);
 
     @Query("SELECT h.heartId FROM Heart h WHERE h.popup.id = :popupId AND h.member.id = :userId")
     Long findHeartById(Long popupId, Long userId);
@@ -28,7 +28,7 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     @Modifying
     @Transactional
-    @Query(" DELETE FROM Heart WHERE heartId = :heartId")
+    @Query("DELETE FROM Heart WHERE heartId = :heartId")
     void deleteHeart(Long heartId);
 
 }
