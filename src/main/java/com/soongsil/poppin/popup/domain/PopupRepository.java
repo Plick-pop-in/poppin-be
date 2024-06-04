@@ -120,4 +120,65 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
     List<Popup> findClosePopupsWithFilters(boolean fashion, boolean beauty, boolean food, boolean celeb,
                                            boolean charactor, boolean living,boolean digital, boolean game,
                                            String search);
+
+
+    // 지도 카테고리에 맞는 팝업 불러오기
+    
+    // 오늘
+    @Query("SELECT DISTINCT p " +
+            "FROM Popup p " +
+            "JOIN p.category c " +
+            "WHERE ((c.fashion = true AND :fashion = true) OR " +
+            "(c.beauty = true AND :beauty = true) OR " +
+            "(c.food = true AND :food = true) OR " +
+            "(c.celeb = true AND :celeb = true) OR " +
+            "(c.charactor = true AND :charactor = true) OR " +
+            "(c.living = true AND :living = true) OR " +
+            "(c.digital = true AND :digital = true) OR " +
+            "(c.game = true AND :game = true))" +
+            "And p.popupLocation like CONCAT('%', :location,'%')" +
+            " AND p.popupCity like CONCAT('%', :city,'%')" +
+            "AND (date(p.popupStartDate) <= date(now()))" +
+            "AND (date(p.popupEndDate) >= date(now()))")
+    List<Popup> findMapPopupToday(boolean fashion, boolean beauty, boolean food, boolean celeb,
+                                  boolean character, boolean living,boolean digital, boolean game, int period, String location, String city);
+
+    // 오늘 ~ 7일 후
+    @Query("SELECT DISTINCT p " +
+            "FROM Popup p " +
+            "JOIN p.category c " +
+            "WHERE ((c.fashion = true AND :fashion = true) OR " +
+            "(c.beauty = true AND :beauty = true) OR " +
+            "(c.food = true AND :food = true) OR " +
+            "(c.celeb = true AND :celeb = true) OR " +
+            "(c.charactor = true AND :charactor = true) OR " +
+            "(c.living = true AND :living = true) OR " +
+            "(c.digital = true AND :digital = true) OR " +
+            "(c.game = true AND :game = true))" +
+            "And p.popupLocation like CONCAT('%', :location,'%')" +
+            "AND (date(p.popupStartDate) <= date(now()))" +
+            "AND (date(p.popupEndDate) >= date(now() + 7))")
+    List<Popup> findMapPopupAfterOneWeek(boolean fashion, boolean beauty, boolean food, boolean celeb,
+                                         boolean character, boolean living,boolean digital, boolean game, int period, String location, String city);
+
+    // 오늘 ~ 14일 후
+    @Query("SELECT DISTINCT p " +
+            "FROM Popup p " +
+            "JOIN p.category c " +
+            "WHERE ((c.fashion = true AND :fashion = true) OR " +
+            "(c.beauty = true AND :beauty = true) OR " +
+            "(c.food = true AND :food = true) OR " +
+            "(c.celeb = true AND :celeb = true) OR " +
+            "(c.charactor = true AND :charactor = true) OR " +
+            "(c.living = true AND :living = true) OR " +
+            "(c.digital = true AND :digital = true) OR " +
+            "(c.game = true AND :game = true))" +
+            "And p.popupLocation like CONCAT('%', :location,'%')" +
+            " AND p.popupCity like CONCAT('%', :city,'%')" +
+            "AND (date(p.popupStartDate) <= date(now()))" +
+            "AND (date(p.popupEndDate) >= date(now() + 14))")
+    List<Popup> findMapPopupAfterTwoWeeks(boolean fashion, boolean beauty, boolean food, boolean celeb,
+                                          boolean character, boolean living,boolean digital, boolean game, int period, String location, String city);
+
+
 }
