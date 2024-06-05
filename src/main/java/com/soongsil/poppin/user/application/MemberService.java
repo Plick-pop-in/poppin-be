@@ -36,7 +36,8 @@ public class MemberService {
                 member.getEmail(),
                 member.getPassword(),
                 member.getNickName(),
-                member.isSocial());
+                member.isSocial(),
+                member.getPoint());
 
         return dto;
     }
@@ -50,6 +51,7 @@ public class MemberService {
                 .email(signupDto.getEmail())
                 .password(passwordEncoder.encode(signupDto.getPassword()))
                 .nickName(signupDto.getNickname())
+                .point(0L)
                 .build();
 
         userRepository.save(member);

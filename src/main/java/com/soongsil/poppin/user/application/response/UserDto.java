@@ -9,11 +9,11 @@ import java.util.Map;
 
 @Getter
 public class UserDto extends User {
-    Long id;
+    Long id, point;
     private String name, email, password, nickname, role;
     boolean social;
 
-    public UserDto(Long id, String name, String email, String password, String nickname, boolean social) {
+    public UserDto(Long id, String name, String email, String password, String nickname, boolean social, Long point) {
         super(
                 email,
                 password,
@@ -26,6 +26,7 @@ public class UserDto extends User {
         this.nickname = nickname;
         this.role = "ROLE_USER";
         this.social = social;
+        this.point = point;
     }
 
     public Map<String, Object> getClaims() {
@@ -38,6 +39,7 @@ public class UserDto extends User {
         dataMap.put("nickname", nickname);
         dataMap.put("role", role);
         dataMap.put("social", social);
+        dataMap.put("point", point);
 
         return dataMap;
     }
