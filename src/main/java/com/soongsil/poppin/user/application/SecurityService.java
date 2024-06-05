@@ -95,7 +95,8 @@ public class SecurityService implements UserDetailsService {
                 member.getEmail(),
                 member.getPassword(),
                 member.getNickName(),
-                member.isSocial()
+                member.isSocial(),
+                member.getPoint()
         );
 
         log.info(userDto);

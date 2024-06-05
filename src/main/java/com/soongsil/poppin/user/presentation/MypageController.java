@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-public class SocialController {
+public class MypageController {
     private final MemberService memberService;
 
     @GetMapping("/v1/user/kakao")
@@ -32,7 +32,7 @@ public class SocialController {
         return claims;
     }
 
-    @PutMapping("/v1/nickname/modify")
+    @PutMapping("/v1/user/modify-nickname")
     public Map<String, String> modify (@RequestBody MypageDto mypageDto) {
         log.info("member modify-------------" + mypageDto);
         memberService.modifyNickname(mypageDto);
