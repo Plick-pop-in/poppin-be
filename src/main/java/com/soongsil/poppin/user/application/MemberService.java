@@ -1,5 +1,9 @@
 package com.soongsil.poppin.user.application;
 
+import com.soongsil.poppin.global.response.ErrorCode;
+import com.soongsil.poppin.popup.application.exception.PopupException;
+import com.soongsil.poppin.user.application.exception.UserException;
+import com.soongsil.poppin.user.application.response.ChargePointDto;
 import com.soongsil.poppin.user.application.response.MypageDto;
 import com.soongsil.poppin.user.application.response.SignupDto;
 import com.soongsil.poppin.user.application.response.UserDto;
@@ -65,13 +69,33 @@ public class MemberService {
         return userRepository.findBynickName(nickname) != null;
     }
 
-    public void modifyNickname(MypageDto mypageDto) {
+    public Boolean modifyNickname(MypageDto mypageDto) {
         Optional<Member> result = userRepository.findById(mypageDto.getId());
+        Member check = userRepository.findBynickName(mypageDto.getNickname());
 
-        Member member = result.orElseThrow();
-        member.setNickName(mypageDto.getNickname());
+        Member member = result.orElseThrow(() ->  new UserException(ErrorCode.USER_NOT_FOUND));
+        if(member.getNickName().equals(mypageDto.getNickname())) {
+            return null;
+        }
+
+        if(check == null) {
+            member.setNickName(mypageDto.getNickname());
+            userRepository.save(member);
+            return true;
+        }
+        return false;
+    }
+
+    public Long chargePoint(ChargePointDto chargePointDto) {
+        Optional<Member> result = userRepository.findById(chargePointDto.getId());
+
+        Member member = result.orElseThrow(() ->  new UserException(ErrorCode.USER_NOT_FOUND));
+        Long newPoint = member.getPoint() + chargePointDto.getPointsToAdd();
+        member.setPoint(newPoint);
 
         userRepository.save(member);
+
+        return newPoint;
     }
 
 

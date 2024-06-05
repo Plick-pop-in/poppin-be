@@ -36,7 +36,6 @@ public class SignupController {
     @PostMapping("/v1/user/check-nickname")
     public ResponseEntity<Boolean> checkNickname(@RequestBody Map<String, String> nicknameMap) {
         String nickname = nicknameMap.get("nickname");
-        log.info(nickname);
         boolean exists = memberService.checkIfNicknameExists(nickname);
         return new ResponseEntity<>(exists, HttpStatus.OK);
     }
