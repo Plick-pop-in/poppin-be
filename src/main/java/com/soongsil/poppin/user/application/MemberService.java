@@ -1,6 +1,7 @@
 package com.soongsil.poppin.user.application;
 
 import com.soongsil.poppin.user.application.response.MypageDto;
+import com.soongsil.poppin.user.application.response.SignupDto;
 import com.soongsil.poppin.user.application.response.UserDto;
 import com.soongsil.poppin.user.domain.Member;
 import com.soongsil.poppin.user.domain.UserRepository;
@@ -40,19 +41,26 @@ public class MemberService {
         return dto;
     }
 
-    public void signupMember(UserDto userDto) {
+    public void signupMember(SignupDto signupDto) {
         log.info("회원가입============");
-        log.info(userDto.getClaims());
 
 
         Member member = Member.builder()
-                .name(userDto.getName())
-                .email(userDto.getUsername())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .nickName(userDto.getNickname())
+                .name(signupDto.getName())
+                .email(signupDto.getEmail())
+                .password(passwordEncoder.encode(signupDto.getPassword()))
+                .nickName(signupDto.getNickname())
                 .build();
 
         userRepository.save(member);
+    }
+
+    public boolean checkIfEmailExists(String email) {
+        return userRepository.getWithEmail(email) != null;
+    }
+
+    public boolean checkIfNicknameExists(String nickname) {
+        return userRepository.findBynickName(nickname) != null;
     }
 
     public void modifyNickname(MypageDto mypageDto) {
