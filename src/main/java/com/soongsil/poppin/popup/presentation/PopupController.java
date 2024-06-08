@@ -124,4 +124,16 @@ public class PopupController {
 
         return ResponseDto.map(HttpStatus.OK.value(), "지도 팝업 리스트 불러오기 성공", mapPopupList);
     }
+
+    // 찜 리스트 불러오기
+    @GetMapping("/wishlist")
+    public ResponseDto<List<WishPopup>> getWishLists(
+            @RequestParam(value = "find", required = false) String userId) {
+
+        // userId 출력
+        System.out.println("find: " + userId);
+
+        List<WishPopup> wishlist = popupSearchService.getWishLists(userId);
+        return ResponseDto.map(HttpStatus.OK.value(), "위시 리스트 불러오기", wishlist);
+    }
 }

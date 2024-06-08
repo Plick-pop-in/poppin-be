@@ -230,4 +230,28 @@ public class PopupSearchService {
         return mapPopupList;
 
     }
+
+    // 라이브 리스트 불러오기 (검색어 포함)
+    public List<WishPopup> getWishLists(String userId) {
+        List<WishPopup> wishList = new ArrayList<>();
+
+        // String userID를 Long 타입으로 변환
+        Long userIdLong = Long.parseLong(userId);
+
+        // 찜 목록 팝업 조회
+        List<Popup> popupList = popupRepository.findWishlistByUserId(userIdLong);
+
+        for (Popup popup : popupList) {
+            String popupImageUrl = popup.getPopupImages().isEmpty() ? null : popup.getPopupImages().get(0).getPopupImageUrl();
+
+            // WishPopup 객체를 생성하여 wishList에 추가
+            wishList.add(new WishPopup(
+                    popup.getPopupId(),
+                    popupImageUrl,
+                    popup.getPopupName()
+            ));
+        }
+
+        return wishList;
+    }
 }

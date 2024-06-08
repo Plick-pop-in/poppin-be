@@ -165,4 +165,10 @@ public interface PopupRepository extends JpaRepository<Popup, Long> {
                                            boolean charactor, boolean living, boolean digital, boolean game,
                                            String local, String city, Date endDate);
 
+    @Query("SELECT p " +
+            "FROM Popup p " +
+            "JOIN Heart h ON p.popupId = h.popup.popupId " +
+            "WHERE h.member.userId = :userId")
+    List<Popup> findWishlistByUserId(Long userId);
+
 }
