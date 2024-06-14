@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Live {
+    private final long popupId;
     private final String popupImage;
     private final String popupName;
     private final String popupLocation;
