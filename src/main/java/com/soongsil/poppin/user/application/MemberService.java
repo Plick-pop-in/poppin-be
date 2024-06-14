@@ -9,12 +9,16 @@ import com.soongsil.poppin.user.application.response.SignupDto;
 import com.soongsil.poppin.user.application.response.UserDto;
 import com.soongsil.poppin.user.domain.Member;
 import com.soongsil.poppin.user.domain.UserRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.LinkedHashMap;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 
 @Service
@@ -98,6 +103,35 @@ public class MemberService {
         return newPoint;
     }
 
+    public void modifyPassword(String userId) {
+        Long userIdAsLong = Long.parseLong(userId);
+
+        CompletableFuture.runAsync(() -> {
+            try{
+                sendEmailForCertification(userIdAsLong);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void setPassword(String email) {
+        email = email.replace("%40", "@");
+        Member member = userRepository.getWithEmail(email + "om");
+
+        log.info("아이디!!!" + member);
+        if (member == null) {
+            throw new UserException(ErrorCode.USER_NOT_FOUND);
+        }
+        CompletableFuture.runAsync(() -> {
+            try{
+                sendEmailForCertification(member.getUserId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 
     public UserDto getKakaoMember(String accessToken) {
         // accessToken을 이용해서 사용자 정보(닉네임) 가져오기
@@ -162,5 +196,49 @@ public class MemberService {
             buffer.append((char) ((int)(Math.random()*55) + 66));
         }
         return buffer.toString();
+    }
+
+    //이메일 보내기
+    public void sendEmailForCertification(Long userId) throws MessagingException {
+
+        // 비밀번호 생성
+        String certificationNumber = makeTempPassword();
+
+        String img = "<img src='http://localhost:8080/plick_logo.png' alt='Plick Logo'>";
+        String link = "<a href='http://localhost:3000/Login'>로그인 링크</a>";
+
+        String content = String.format("%s <br> 임시비밀번호: %s <br><br> %s <br> 로그인 후 마이페이지에서 비밀번호를 수정해주세요.",
+                img,
+                certificationNumber,
+                link);
+
+        // 비밀번호 인코딩
+        String userPw = passwordEncoder.encode(certificationNumber);
+
+        // DB에 비밀번호 저장
+        Optional<Member> result = userRepository.findById(userId);
+        Member member = result.orElseThrow(() ->  new UserException(ErrorCode.USER_NOT_FOUND));
+        member.setPassword(userPw);
+        userRepository.save(member);
+
+        // 이메일 전송
+        sendMail(member.getEmail(), content);
+    }
+
+
+    private final JavaMailSender mailSender;
+    private void sendMail(String email, String content) throws MessagingException {
+
+        // 이메일 객체 생성
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
+        // 수신자, 제목, 내용 설정
+        helper.setTo(email);
+        helper.setSubject("Pop`in 비밀번호 변경 메일");
+        helper.setText(content, true); // html변환 전달
+
+        // 메일 전송
+        mailSender.send(mimeMessage);
     }
 }
