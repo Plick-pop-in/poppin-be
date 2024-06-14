@@ -204,8 +204,8 @@ public class MemberService {
         // 비밀번호 생성
         String certificationNumber = makeTempPassword();
 
-        String img = "<img src='http://localhost:8080/plick_logo.png' alt='Plick Logo'>";
-        String link = "<a href='http://localhost:3000/Login'>로그인 링크</a>";
+        String img = "<img src='http://www.plcik.shop/plick_logo.png' alt='Plick Logo'>";
+        String link = "<a href='http://d2vr7xh1eokzzb.cloudfront.net/Login'>로그인 링크</a>";
 
         String content = String.format("%s <br> 임시비밀번호: %s <br><br> %s <br> 로그인 후 마이페이지에서 비밀번호를 수정해주세요.",
                 img,
