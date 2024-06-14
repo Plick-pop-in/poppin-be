@@ -35,6 +35,7 @@ import java.util.concurrent.CompletableFuture;
 @Transactional
 @Log4j2
 public class MemberService {
+    private final JavaMailSender mailSender;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     UserDto entityToDTO(Member member) {
@@ -199,6 +200,47 @@ public class MemberService {
     }
 
     //이메일 보내기
+//    public void sendEmailForCertification(Long userId) throws MessagingException {
+//
+//        // 비밀번호 생성
+//        String certificationNumber = makeTempPassword();
+//
+//        String img = "<img src='http://www.plcik.shop/plick_logo.png' alt='Plick Logo'>";
+//        String link = "<a href='http://d2vr7xh1eokzzb.cloudfront.net/Login'>로그인 링크</a>";
+//
+//        String content = String.format("%s <br> 임시비밀번호: %s <br><br> %s <br> 로그인 후 마이페이지에서 비밀번호를 수정해주세요.",
+//                img,
+//                certificationNumber,
+//                link);
+//
+//        // 비밀번호 인코딩
+//        String userPw = passwordEncoder.encode(certificationNumber);
+//
+//        // DB에 비밀번호 저장
+//        Optional<Member> result = userRepository.findById(userId);
+//        Member member = result.orElseThrow(() ->  new UserException(ErrorCode.USER_NOT_FOUND));
+//        member.setPassword(userPw);
+//        userRepository.save(member);
+//
+//        // 이메일 전송
+//        sendMail(member.getEmail(), content);
+//    }
+//
+//    private void sendMail(String email, String content) throws MessagingException {
+//
+//        // 이메일 객체 생성
+//        MimeMessage mimeMessage = mailSender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+//
+//        // 수신자, 제목, 내용 설정
+//        helper.setTo(email);
+//        helper.setSubject("Pop`in 비밀번호 변경 메일");
+//        helper.setText(content, true); // html변환 전달
+//
+//        // 메일 전송
+//        mailSender.send(mimeMessage);
+//    }
+
     public void sendEmailForCertification(Long userId) throws MessagingException {
 
         // 비밀번호 생성
@@ -217,7 +259,7 @@ public class MemberService {
 
         // DB에 비밀번호 저장
         Optional<Member> result = userRepository.findById(userId);
-        Member member = result.orElseThrow(() ->  new UserException(ErrorCode.USER_NOT_FOUND));
+        Member member = result.orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
         member.setPassword(userPw);
         userRepository.save(member);
 
@@ -225,18 +267,16 @@ public class MemberService {
         sendMail(member.getEmail(), content);
     }
 
-
-    private final JavaMailSender mailSender;
     private void sendMail(String email, String content) throws MessagingException {
 
         // 이메일 객체 생성
         MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
         // 수신자, 제목, 내용 설정
         helper.setTo(email);
         helper.setSubject("Pop`in 비밀번호 변경 메일");
-        helper.setText(content, true); // html변환 전달
+        helper.setText(content, true); // HTML 변환 전달
 
         // 메일 전송
         mailSender.send(mimeMessage);
