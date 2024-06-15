@@ -143,6 +143,7 @@ public class PopupSearchService {
 
             // 불필요한 변수를 줄이고, 바로 Live 객체를 생성하여 liveList에 추가
             liveList.add(new Live(
+                    popup.getPopupId(),
                     popupImageUrl,
                     popup.getPopupName(),
                     popup.getPopupLocation(),
