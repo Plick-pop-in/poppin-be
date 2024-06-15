@@ -249,7 +249,8 @@ public class PopupSearchService {
             wishList.add(new WishPopup(
                     popup.getPopupId(),
                     popupImageUrl,
-                    popup.getPopupName()
+                    popup.getPopupName(),
+                    heartRepository.countHeartByPopup(popup.getPopupId())
             ));
         }
 

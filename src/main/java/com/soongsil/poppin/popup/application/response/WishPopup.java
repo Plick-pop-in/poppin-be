@@ -9,4 +9,5 @@ public class WishPopup {
     private final Long popupId;
     private final String popupImage;
     private final String popupName;
+    private final Long heart;
 }
