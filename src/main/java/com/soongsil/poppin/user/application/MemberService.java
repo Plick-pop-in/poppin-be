@@ -164,6 +164,7 @@ public class MemberService {
                 .password(passwordEncoder.encode(tempPassword))
                 .nickName(nickname)
                 .social(true)
+                .point(0L)
                 .build();
 
         return member;
