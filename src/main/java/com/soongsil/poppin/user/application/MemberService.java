@@ -62,6 +62,7 @@ public class MemberService {
                 .password(passwordEncoder.encode(signupDto.getPassword()))
                 .nickName(signupDto.getNickname())
                 .point(0L)
+                .social(false)
                 .build();
 
         userRepository.save(member);
@@ -247,8 +248,8 @@ public class MemberService {
         // 비밀번호 생성
         String certificationNumber = makeTempPassword();
 
-        String img = "<img src='http://www.plcik.shop/plick_logo.png' alt='Plick Logo'>";
-        String link = "<a href='http://d2vr7xh1eokzzb.cloudfront.net/Login'>로그인 링크</a>";
+        String img = "<img src='https://popup-img.s3.ap-northeast-2.amazonaws.com/plick_logo.png' alt='Plick Logo'>";
+        String link = "<a href='http://plick.shop/Login'>로그인 링크</a>";
 
         String content = String.format("%s <br> 임시비밀번호: %s <br><br> %s <br> 로그인 후 마이페이지에서 비밀번호를 수정해주세요.",
                 img,
