@@ -32,7 +32,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build --exclude-task test
         working-directory: ./
-        
+
+    
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
         env:
