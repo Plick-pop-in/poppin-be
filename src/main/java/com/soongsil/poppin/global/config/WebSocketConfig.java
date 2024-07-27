@@ -8,10 +8,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
-
 @Configuration
 @EnableWebSocketMessageBroker
-@CrossOrigin(origins = "*")
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override

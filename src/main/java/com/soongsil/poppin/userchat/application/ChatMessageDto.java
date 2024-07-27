@@ -3,6 +3,7 @@ package com.soongsil.poppin.userchat.application;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ChatMessageDto {
+
     @JsonProperty("type")
     private String type;
 
@@ -18,10 +19,37 @@ public class ChatMessageDto {
     @JsonProperty("id")
     private String id;
 
-    public void setId(String id) {
-        this.id = id;
+    @JsonProperty("roomId")
+    private String roomId;
+
+    // Getter and Setter for type
+    public String getType() {
+        return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    // Getter and Setter for content
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    // Getter and Setter for sender
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    // Getter and Setter for time
     public String getTime() {
         return time;
     }
@@ -30,7 +58,22 @@ public class ChatMessageDto {
         this.time = time;
     }
 
-    // 다른 필드들의 getter, setter, toString 등은 생략
+    // Getter and Setter for id
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
 
     @Override
     public String toString() {
