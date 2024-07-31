@@ -1,11 +1,10 @@
 package com.soongsil.poppin.user.presentation;
 
+import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.soongsil.poppin.global.response.ResponseDto;
 import com.soongsil.poppin.user.application.MemberService;
-import com.soongsil.poppin.user.application.response.ChargePointDto;
-import com.soongsil.poppin.user.application.response.JWTUtil;
-import com.soongsil.poppin.user.application.response.MypageDto;
-import com.soongsil.poppin.user.application.response.UserDto;
+import com.soongsil.poppin.user.application.PaymentService;
+import com.soongsil.poppin.user.application.response.*;
 import com.soongsil.poppin.user.domain.Member;
 import com.soongsil.poppin.userchat.application.response.JoinUserChat;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -21,6 +21,7 @@ import java.util.Map;
 @Log4j2
 public class MypageController {
     private final MemberService memberService;
+    private final PaymentService paymentService;
 
     @GetMapping("/v1/user/kakao")
     public Map<String, Object> getMemberFromKakao(String accessToken) {
@@ -51,6 +52,13 @@ public class MypageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
         return ResponseEntity.ok(newPoint);
+    }
+
+    @ResponseBody
+    @RequestMapping("/v1/verify/{imp_uid}")
+    public PaymentDto paymentByImpUid(@PathVariable("imp_uid") String imp_uid)
+            throws IamportResponseException, IOException {
+        return paymentService.verifyPayment(imp_uid); // 결제 및 검증 DB 값 삽입
     }
 
     @PostMapping("/v1/user/modify-password")
